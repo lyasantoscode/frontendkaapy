@@ -9,7 +9,7 @@
         --dark-blue: #2e3d49;
         --light-gray: #f7f7f7;
         --white: #ffffff;
-        --text-primary: #2e3d49;
+        --text-primary: #000000;
         --text-secondary: #666;
         --card-shadow: rgba(0,0,0,0.1);
         --cube-size: 200px;
@@ -327,6 +327,18 @@
         font-size: 1.2rem;
       }
   
+      .section-title1 {
+  font-size: 2.5rem; /* Aumente o tamanho do texto */
+  font-weight: bold; /* Caso queira deixar mais destacado */
+  text-align: center; /* Mantém o texto centralizado */
+  margin-top: 2rem; /* Adiciona espaço acima do título */
+}
+.section-title {
+  font-size: 2.5rem; /* Aumente o tamanho do texto */
+  font-weight: bold; /* Caso queira deixar mais destacado */
+  text-align: center; /* Mantém o texto centralizado */
+}
+
       .stats-section {
         padding: 4rem 2rem;
         background: var(--white);
@@ -743,37 +755,37 @@
   
       /* Style for the new action buttons */
       .action-button {
-        background: var(--white);
-        color: var(--udacity-blue);
-        padding: 1rem 2rem;
-        border-radius: 25px;
+    background: #460be7; /* Azul escuro */
+    color: #ffffff; /* Texto branco */
+   
+        padding: 1.5rem 3rem; /* Aumenta o espaço interno */
+        border-radius: 8px;
         text-decoration: none;
         font-weight: bold;
-        font-size: 1rem;
+        font-size: 1.2rem;
         transition: all 0.3s ease;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 6px 8px rgba(0,0,0,0.1); /* Dá mais ênfase */
         position: relative;
+        display: inline-block;
         overflow: hidden;
       }
   
       .action-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        background: var(--udacity-blue);
-        color: var(--white);
-      }
-  
-      .action-button::after {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(255,255,255,0.1);
-        transform: translateX(-100%);
-        transition: transform 0.3s ease;
-      }
+    background: #21056e; 
+    color: #e0f7ff;
+}
+
+
+.action-button::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px; /* Controle o tamanho do "corte" */
+    height: 40px;
+    background-color: #000; /* Cor de fundo do corte (ajustar conforme necessário) */
+    clip-path: polygon(100% 0, 0 100%, 100% 100%); /* Faz o corte na diagonal */
+}
   
       .action-button:hover::after {
         transform: translateX(0);
@@ -871,6 +883,13 @@
         }
       }
   
+      .hero-text .hero-title {
+  color: white;
+  font-size: 4.5rem;
+  font-weight: bold;
+}
+
+
       /* General responsive adjustments */
       @media screen and (max-width: 1200px) {
         .hero-content,
@@ -1142,7 +1161,7 @@
         width: 100%;
       }
   
-      /* Improve footer styling */
+      /* Stylee do footer/rodapé */
       .footer {
         background: var(--white);
         padding: 2rem;
@@ -1258,8 +1277,8 @@
     <section class="hero">
       <div class="hero-content">
         <div class="hero-text">
-          <h1 class="floating-animation">Learn the skills to advance your career</h1>
-          <p>Master in-demand skills with real-world projects and expert instructors. Get started today with 40% off!</p>
+            <h1 class="hero-title">KAAPY CURSOS</h1>
+          <p>Conecte-se e explore o universo da maior comunidade de aprendizagem do país</p>
         </div>
         <div class="hero-image">
           <div class="cube-block">
@@ -1287,7 +1306,7 @@
  <!-- Section da feactured-courses -->
 
     <section class="featured-courses">
-      <h2>Featured Courses</h2>
+       <h2 class="section-title1">CURSOS EM DESTAQUE</h2>
       <div class="swiper courses-swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
@@ -1414,7 +1433,7 @@
 
 
     <section class="learning-paths">
-      <h2>Trilhas de Aprendizado</h2>
+        <h2 class="section-title">TRILHAS DE APRENDIZADO</h2>
       <div class="paths-grid">
         <div class="path-card">
           <svg class="path-icon" viewBox="0 0 24 24">
@@ -1598,7 +1617,7 @@
       <div class="footer-content">
         <div class="footer-left">
           <div class="footer-copyright"> 2024 KAAPY</div>
-          <div class="footer-phone">1-888-674-3175</div>
+          <div class="footer-phone">Parintins, AM - BR</div>
         </div>
         <div class="footer-social">
           <a href="https://facebook.com/kaapy" target="_blank">
@@ -1781,14 +1800,38 @@
         });
       });
       const formulas = [
-        'E = mc²',
-        'F = ma',
-        '∫ f(x)dx',
         'π = 3.14159', 
-        'print("Hello")',
+        '9 x 7 = ?',
         'import numpy',
+        '>',
+        '2 + 2 = ?',
+        'fun main(){}',
+        'V = Δs / Δt',
+        'F = ma',
+        '∫ f(x)dx', 
+        'print("Hello")',
+        'n = m / M',
+        'sen²x + cos²x = 1',
+        'A = πr²',
+        'PV = nRT',
+        'print ("ok")',
+        'pH = -log[H⁺]',
+        'log(ab) = log(a) + log(b)',
+        'V = a³',
+        'x = [-b ± √(b² - 4ac)] / 2a',
+        'v² = v0² + 2aΔs',
+        'V = a³',
+        'V = πr²h',
+        'Média: μ = Σx / n',
+        ' y = a + bx',
+        'E = mc²',
         'd/dx(sin x) = cos x',
-        'def main():'
+        'd/dx(cos x) = -sin x',
+        'd/dx(ln x) = 1/x',
+        '∫ sin x dx = -cos x + C',
+        '∫ cos x dx = sin x + C',
+        '2 x 6 = ?',
+        '40 + 12 - 16 = ?',
       ];
   
       let currentFormulaIndex = 0;
