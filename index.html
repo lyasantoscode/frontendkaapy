@@ -418,13 +418,20 @@
       }
   
       .plan-card {
-        background: var(--white);
-        border-radius: 12px;
-        padding: 2rem;
-        color: var(--text-primary);
-        text-align: center;
-        transition: transform 0.3s ease;
+        display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Garante que o conteúdo esteja bem distribuído */
+  align-items: center; /* Centraliza o conteúdo horizontalmente */
+  background: var(--white);
+  border-radius: 12px;
+  padding: 2rem;
+  color: var(--text-primary);
+  text-align: center;
+  transition: transform 0.3s ease;
+  box-shadow: 0 4px 12px var(--card-shadow); /* Adiciona sombra para destacar */
       }
+
+      
   
       .plan-card:hover {
         transform: translateY(-8px);
@@ -890,7 +897,10 @@
         }
   
         .plans-grid {
-          grid-template-columns: 1fr;
+            display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajuste automático das colunas */
+  gap: 2rem; /* Espaçamento entre os cartões */
+  justify-items: center; /* Centraliza os cartões no grid */
         }
   
         .testimonials-grid {
