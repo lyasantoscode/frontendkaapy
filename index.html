@@ -23,6 +23,11 @@
         --text-secondary: #aaa;
         --card-shadow: rgba(255,255,255,0.1);
       }
+
+      [data-theme="dark"] .hero {
+    background-color: #013047; /* Substitua por um azul escuro de sua preferência */
+}
+
   
       * {
         margin: 0;
@@ -750,31 +755,32 @@
         transform: translateX(0);
       }
       
-      /* Update/add cube styles */
-      .cube {
+    /* Update/add cube styles */
+    /*  .cube {
         transform-style: preserve-3d;
         animation: rotate 20s linear infinite;
         perspective: 1000px;
       }
   
-      .cube-face {
+      /* .cube-face {
         fill: none;
         stroke: #02b3e4;
         stroke-width: 2;
         opacity: 0.3;
         filter: url(#glow);
-      }
+      } */
   
-      @keyframes rotate {
+    /*    @keyframes rotate {
         from {
           transform: rotateX(0) rotateY(0) rotateZ(0);
         }
         to {
           transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
         }
-      }
+      }*/
   
       /* Add new footer styles */
+
       .footer {
         background: var(--white);
         padding: 2rem;
@@ -1034,6 +1040,89 @@
           display: block;
         }
       }
+
+
+
+      .tech-hologram {
+    position: absolute;
+    right: 10%;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 200px;
+    height: 200px;
+    perspective: 1000px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.cube-container {
+    width: 200px;
+    height: 200px;
+    position: relative;
+    perspective: 1000px;
+}
+
+.cube {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    transform-style: preserve-3d;
+    animation: cube-rotate 20s infinite linear;
+}
+
+.cube-face {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    background: rgba(255, 255, 255, 0.1); /* Fundo branco translúcido */
+    border: 2px solid rgba(255, 255, 255, 0.7); /* Borda branca */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Space Grotesk', monospace;
+    font-size: 1.2rem;
+    color: #ffffff; /* Texto branco */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), /* Brilho extra */
+    0 0 30px rgba(255, 255, 255, 0.7); /* Sombra maior */
+    backdrop-filter: blur(2px);
+    overflow: hidden;
+}
+
+.front {
+    transform: translateZ(100px);
+}
+
+.back {
+    transform: rotateY(180deg) translateZ(100px);
+}
+
+.right {
+    transform: rotateY(90deg) translateZ(100px);
+}
+
+.left {
+    transform: rotateY(-90deg) translateZ(100px);
+}
+
+.top {
+    transform: rotateX(90deg) translateZ(100px);
+}
+
+.bottom {
+    transform: rotateX(-90deg) translateZ(100px);
+}
+
+@keyframes cube-rotate {
+    0% {
+        transform: rotateX(0) rotateY(0) rotateZ(0);
+    }
+    100% {
+        transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+    }
+}
+
+
     </style>
   </head>
   <body>
@@ -1062,6 +1151,24 @@
           <h1 class="floating-animation">Kaapy Cursos</h1>
           <p>Caminho aberto para o saber</p>
         </div>
+
+
+  <!-- Cubo Adicionado Aqui -->
+  <div class="tech-hologram">
+    <div class="cube-container">
+      <div class="cube">
+        <div class="cube-face front"></div>
+        <div class="cube-face back"></div>
+        <div class="cube-face right"></div>
+        <div class="cube-face left"></div>
+        <div class="cube-face top"></div>
+        <div class="cube-face bottom"></div>
+      </div>
+    </div>
+  </div>
+  <!-- Fim do Cubo -->
+
+
         <div class="hero-image">
           <svg width="100%" height="400" viewBox="0 0 600 400">
             <defs>
@@ -1077,26 +1184,7 @@
                 </feMerge>
               </filter>
             </defs>
-            <g class="cube" transform="translate(300, 200)">
-              <!-- Front face -->
-              <path class="cube-face" d="M-100,-100 L100,-100 L100,100 L-100,100 Z" />
-              <!-- Back face -->
-              <path class="cube-face" d="M-100,-100 L100,-100 L100,100 L-100,100 Z" transform="translate(0,0,-200)" />
-              <!-- Left face -->
-              <path class="cube-face" d="M-100,-100 L-100,100 L-100,100 L-100,-100 Z" transform="rotateY(-90deg) translate(-100,0)" />
-              <!-- Right face -->
-              <path class="cube-face" d="M100,-100 L100,100 L100,100 L100,-100 Z" transform="rotateY(90deg) translate(100,0)" />
-              <!-- Top face -->
-              <path class="cube-face" d="M-100,-100 L100,-100 L100,-100 L-100,-100 Z" transform="rotateX(90deg) translate(0,-100)" />
-              <!-- Bottom face -->
-              <path class="cube-face" d="M-100,100 L100,100 L100,100 L-100,100 Z" transform="rotateX(-90deg) translate(0,100)" />
-              
-              <!-- Connecting edges -->
-              <line class="cube-face" x1="-100" y1="-100" x2="-100" y2="-100" transform="translate(0,0,-200)" />
-              <line class="cube-face" x1="100" y1="-100" x2="100" y2="-100" transform="translate(0,0,-200)" />
-              <line class="cube-face" x1="100" y1="100" x2="100" y2="100" transform="translate(0,0,-200)" />
-              <line class="cube-face" x1="-100" y1="100" x2="-100" y2="100" transform="translate(0,0,-200)" />
-            </g>
+            
           </svg>
         </div>
       </div>
@@ -1588,6 +1676,34 @@
           });
         });
       });
+
+       // Código do cubo
+       document.addEventListener('DOMContentLoaded', () => {
+    const contents = ['E = mc²', 'F = ma', '∫ f(x)dx', 'π = 3.14159', 'print("Hello")', 'import numpy', 'd/dx(sin x) = cos x', 'def main():'];
+    const faces = document.querySelectorAll('.cube-face');
+    let currentIndices = Array(faces.length).fill(0); // Mantém o índice atual de cada face
+  
+    function updateFaceContent(face, index) {
+      // Atualiza o conteúdo de uma face específica
+      face.textContent = contents[currentIndices[index]];
+      currentIndices[index] = (currentIndices[index] + 1) % contents.length; // Move para o próximo índice
+    }
+  
+    function startFaceUpdates() {
+      faces.forEach((face, index) => {
+        // Atualiza cada face em intervalos de 2 segundos
+        setInterval(() => {
+          updateFaceContent(face, index);
+        }, 2000); // 2 segundos por atualização
+      });
+    }
+  
+    // Inicializa a troca de textos
+    startFaceUpdates();
+  });
+
+
+
     </script>
   </body>
   </html>
