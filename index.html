@@ -156,6 +156,8 @@
         line-height: 1.6;
         color: var(--white);
       }
+
+      
   
       .cta-button {
         background: var(--white);
@@ -511,23 +513,28 @@
       }
   
       .testimonials-grid {
-        max-width: 1200px;
-        margin: 0 auto;
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 20px; /* Espaço consistente entre os cards */
+  justify-content: center; /* Centraliza os cards no contêiner */
+  align-items: stretch; /* Garante que todos os cards tenham altura consistente */
+  padding: 0 2rem; /* Espaçamento interno lateral */
+  
+
       }
   
       .testimonial-card {
         background: var(--white);
         border-radius: 12px;
-        padding: 2rem;
+        padding: 1.5rem;
         box-shadow: 0 4px 12px var(--card-shadow);
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;;
+        text-align: left; /* Alinha o conteúdo internamente à esquerda */
       }
   
       .testimonial-card:hover {
         transform: translateY(-8px);
+        box-shadow: 0 8px 24px var(--card-shadow);
       }
   
       [data-theme="dark"] .testimonial-card:hover {
@@ -537,21 +544,21 @@
       .testimonial-header {
         display: flex;
         align-items: center;
-        margin-bottom: 1.5rem;
+        margin-bottom: 1rem;  /* Ajuste menor para o espaçamento do header */
       }
   
       .testimonial-avatar {
-        width: 60px;
-        height: 60px;
-        border-radius: 50%;
-        margin-right: 1rem;
-        background: var(--udacity-blue);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--white);
-        font-size: 1.5rem;
-        font-weight: bold;
+        width: 50px; /* Reduz o tamanho do avatar */
+  height: 50px;
+  border-radius: 50%;
+  background: var(--udacity-blue);
+  color: var(--white);
+  font-size: 1.2rem;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
       }
   
       .testimonial-info h3 {
@@ -565,16 +572,31 @@
       }
   
       .testimonial-content {
-        color: var(--text-secondary);
-        line-height: 1.6;
-        font-style: italic;
+        font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  font-style: italic;
+  margin-bottom: 1rem;
       }
   
       .testimonial-rating {
-        color: #ffd700;
-        margin-top: 1rem;
+        color: #ffd700; /* Mantém a cor dourada para as estrelas */
+  text-align: left; /* Alinha as estrelas com o conteúdo */
       }
   
+/* Responsividade adicional */
+@media screen and (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr; /* Cards em coluna única no mobile */
+    padding: 0 1rem;
+  }
+
+  .testimonial-card {
+    padding: 1rem;
+  }
+}
+
+      
       /* Update text colors to use variables */
       .course-content h3,
       .path-content h3,
@@ -606,6 +628,7 @@
       .testimonial-card {
         background: var(--white);
         box-shadow: 0 4px 12px var(--card-shadow);
+        padding: 1rem;
       }
   
       /* Update hover effects for dark mode */
@@ -790,6 +813,7 @@
         .plans-grid,
         .testimonials-grid {
           padding: 0 20px;
+          
         }
       }
   
@@ -903,7 +927,7 @@
   justify-items: center; /* Centraliza os cartões no grid */
         }
   
-        .testimonials-grid {
+        .testimonials-grid {      /* Deixar para ajustar no final. Invalido* aqui, mas deixa ai */
           grid-template-columns: 1fr;
         }
   
@@ -1018,8 +1042,8 @@
     <section class="hero">
       <div class="hero-content">
         <div class="hero-text">
-          <h1 class="floating-animation">Learn the skills to advance your career</h1>
-          <p>Master in-demand skills with real-world projects and expert instructors. Get started today with 40% off!</p>
+          <h1 class="floating-animation">Kaapy Cursos</h1>
+          <p>Caminho aberto para o saber</p>
         </div>
         <div class="hero-image">
           <svg width="100%" height="400" viewBox="0 0 600 400">
@@ -1067,7 +1091,7 @@
     </section>
   
     <section class="featured-courses">
-      <h2>Featured Courses</h2>
+      <h2>Cursos em Destaque</h2>
       <div class="swiper courses-swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
@@ -1350,6 +1374,20 @@
           </div>
           <div class="testimonial-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
         </div>
+
+        <div class="testimonial-card">
+            <div class="testimonial-header">
+              <div class="testimonial-avatar">AS</div>
+              <div class="testimonial-info">
+                <h3>Ana Silva</h3>
+                <p>Cientista de Dados</p>
+              </div>
+            </div>
+            <div class="testimonial-content">
+              "A metodologia prática e os projetos reais me deram confiança para entrar no mercado de dados. O curso de Data Science superou todas as minhas expectativas!"
+            </div>
+            <div class="testimonial-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+          </div>
   
         <div class="testimonial-card">
           <div class="testimonial-header">
@@ -1412,13 +1450,24 @@
     prevEl: '.swiper-button-prev',
   },
   breakpoints: {
+    480: {
+      slidesPerView: 1,
+      spaceBetween: 15, // Espaçamento adequado para telas pequenas
+    },
+
     640: {
       slidesPerView: 2,
       spaceBetween: 15, // Ajuste para telas menores
     },
+
+    768: {
+      slidesPerView: 2,
+      spaceBetween: 20, // Aumenta para tablets
+    },
+    
     1024: {
       slidesPerView: 3,
-      spaceBetween: 20, // Ajuste para telas maiores
+      spaceBetween: 25, // Ajuste para telas maiores
     },
     1400: {
       slidesPerView: 4,
