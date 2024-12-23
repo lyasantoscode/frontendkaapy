@@ -572,7 +572,7 @@
       }
   
       .testimonial-content {
-        font-size: 1rem;
+        font-size: 0.9rem;
   line-height: 1.6;
   color: var(--text-secondary);
   font-style: italic;
@@ -588,11 +588,12 @@
 @media screen and (max-width: 768px) {
   .testimonials-grid {
     grid-template-columns: 1fr; /* Cards em coluna única no mobile */
-    padding: 0 1rem;
+    padding: 0rem;
   }
 
   .testimonial-card {
     padding: 1rem;
+    font-size: 0.9rem; /* Ajuste no tamanho da fonte em dispositivos menores */
   }
 }
 
@@ -1450,21 +1451,14 @@
     prevEl: '.swiper-button-prev',
   },
   breakpoints: {
-    480: {
-      slidesPerView: 1,
-      spaceBetween: 15, // Espaçamento adequado para telas pequenas
-    },
+  
 
     640: {
       slidesPerView: 2,
       spaceBetween: 15, // Ajuste para telas menores
     },
 
-    768: {
-      slidesPerView: 2,
-      spaceBetween: 20, // Aumenta para tablets
-    },
-    
+   
     1024: {
       slidesPerView: 3,
       spaceBetween: 25, // Ajuste para telas maiores
