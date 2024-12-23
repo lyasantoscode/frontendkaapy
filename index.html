@@ -12,6 +12,8 @@
         --text-primary: #2e3d49;
         --text-secondary: #666;
         --card-shadow: rgba(0,0,0,0.1);
+        --cube-size: 200px;
+        --cube-half: 100px;
       }
   
       [data-theme="dark"] {
@@ -23,11 +25,6 @@
         --text-secondary: #aaa;
         --card-shadow: rgba(255,255,255,0.1);
       }
-
-      [data-theme="dark"] .hero {
-    background-color: #013047; /* Substitua por um azul escuro de sua preferência */
-}
-
   
       * {
         margin: 0;
@@ -161,8 +158,6 @@
         line-height: 1.6;
         color: var(--white);
       }
-
-      
   
       .cta-button {
         background: var(--white);
@@ -179,68 +174,110 @@
         transform: translateY(-2px);
       }
   
-      .featured-courses, .learning-paths {
+      .featured-courses {
         padding: 4rem 2rem;
-        background: var(--light-gray);
+  background: var(--light-gray);
       }
   
-      .featured-courses h2, .learning-paths h2 {
+      .featured-courses h2 {
         text-align: center;
-        font-size: 2.5rem;
-        margin-bottom: 3rem;
+  font-size: 2.5rem;
+  margin-bottom: 3rem;
       }
   
       .courses-swiper {
         padding: 20px 50px;
-        position: relative;
-      }
-  
-      .swiper-button-next,
-      .swiper-button-prev {
-        color: var(--udacity-blue);
-      }
-  
-      .courses-swiper {
   display: flex;
   flex-direction: column; /* Organiza os slides e a paginação em coluna */
   justify-content: center; /* Centraliza verticalmente */
   align-items: center; /* Centraliza horizontalmente */
   gap: 10px; /* Controla o espaço entre os slides e a paginação */
   padding-bottom: 20px; /* Espaçamento fixo abaixo dos slides */
-}
-
-.swiper-pagination {
-  margin: 0; /* Remove margens desnecessárias */
-  position: static; /* Remove posicionamento absoluto */
-}
-
-
-      .swiper-pagination-bullet {
-        background: var(--udacity-blue);
       }
-  
-      .swiper-pagination-bullet-active {
-        background: var(--udacity-blue);
-      }
-  
+
       .swiper-slide {
-        height: auto;
-        transition: transform 0.3s ease;
-      }
-  
-      [data-theme="dark"] .swiper-button-next,
-      [data-theme="dark"] .swiper-button-prev {
-        color: var(--udacity-blue);
-      }
-  
-      @media screen and (max-width: 768px) {
-        .courses-swiper {
-          padding: 20px 30px;
-        }
-      }
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.course-card {
+  flex: 0 0 350px;
+  max-width: 350px;
+  margin-bottom: 1rem;
+  background: var(--white);
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.course-card:hover {
+  transform: translateY(-8px);
+}
+
+.course-image {
+  height: 200px;
+  background: var(--udacity-blue);
+  position: relative;
+  overflow: hidden;
+}
+
+.course-content {
+  padding: 1.5rem;
+}
+
+.course-content h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.course-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.course-rating {
+  color: #ffd700;
+}
+
+.course-duration {
+  color: var(--text-secondary);
+}
+
+.course-price {
+  font-weight: bold;
+  color: var(--udacity-blue);
+  font-size: 1.2rem;
+}
+
+.swiper-pagination-bullet {
+  background: var(--udacity-blue);
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--udacity-blue);
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+  color: var(--udacity-blue);
+}
+
+@media screen and (max-width: 768px) {
+  .courses-swiper {
+    padding: 20px 30px;
+  }
+}
   
       .course-card {
-        flex: 0 0 350px; 
+        background: var(--white);
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        flex: 0 0 350px;
         max-width: 350px;
         margin-bottom: 1rem;
       }
@@ -425,20 +462,13 @@
       }
   
       .plan-card {
-        display: flex;
-  flex-direction: column;
-  justify-content: space-between; /* Garante que o conteúdo esteja bem distribuído */
-  align-items: center; /* Centraliza o conteúdo horizontalmente */
-  background: var(--white);
-  border-radius: 12px;
-  padding: 2rem;
-  color: var(--text-primary);
-  text-align: center;
-  transition: transform 0.3s ease;
-  box-shadow: 0 4px 12px var(--card-shadow); /* Adiciona sombra para destacar */
+        background: var(--white);
+        border-radius: 12px;
+        padding: 2rem;
+        color: var(--text-primary);
+        text-align: center;
+        transition: transform 0.3s ease;
       }
-
-      
   
       .plan-card:hover {
         transform: translateY(-8px);
@@ -518,83 +548,48 @@
       }
   
       .testimonials-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 20px; /* Espaço consistente entre os cards */
-  justify-content: center; /* Centraliza os cards no contêiner */
-  align-items: stretch; /* Garante que todos os cards tenham altura consistente */
-  padding: 0 2rem; /* Espaçamento interno lateral */
-}
-
-/* Responsividade para telas pequenas */
-@media (max-width: 768px) {
-  .testimonials-grid {
-    grid-template-columns: 1fr; /* Apenas um card por linha */
-  }
-}
-
-.testimonial-card {
-  width: 100%; /* Garante que os cartões ocupem toda a largura disponível */
-  background: var(--white);
-  border-radius: 12px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 12px var(--card-shadow);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: left; /* Alinha o conteúdo internamente à esquerda */
-}
-
-.testimonial-card:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 8px 24px var(--card-shadow);
-}
-
-[data-theme="dark"] .testimonial-card:hover {
-  box-shadow: 0 8px 24px var(--card-shadow);
-}
-
-.testimonial-header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem; /* Ajuste menor para o espaçamento do header */
-}
-
-.testimonial-avatar {
-  width: 50px; /* Reduz o tamanho do avatar */
-  height: 50px;
-  border-radius: 50%;
-  background: var(--udacity-blue);
-  color: var(--white);
-  font-size: 1.2rem;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-right: 1rem;
-}
-
-.testimonial-info h3 {
-  color: var(--text-primary);
-  margin-bottom: 0.25rem;
-}
-
-.testimonial-info p {
-  color: var(--text-secondary);
-  font-size: 0.9rem;
-}
-
-.testimonial-content {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  font-style: italic;
-  margin-bottom: 1rem;
-}
-
-.testimonial-rating {
-  color: #ffd700; /* Mantém a cor dourada para as estrelas */
-  text-align: left; /* Alinha as estrelas com o conteúdo */
-}
-
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+      }
+  
+      .testimonial-card {
+        background: var(--white);
+        border-radius: 12px;
+        padding: 2rem;
+        box-shadow: 0 4px 12px var(--card-shadow);
+        transition: transform 0.3s ease;
+      }
+  
+      .testimonial-card:hover {
+        transform: translateY(-8px);
+      }
+  
+      [data-theme="dark"] .testimonial-card:hover {
+        box-shadow: 0 8px 24px var(--card-shadow);
+      }
+  
+      .testimonial-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+  
+      .testimonial-avatar {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        margin-right: 1rem;
+        background: var(--udacity-blue);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--white);
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
   
       .testimonial-info h3 {
         color: var(--text-primary);
@@ -607,18 +602,16 @@
       }
   
       .testimonial-content {
-        font-size: 0.9rem;
-  line-height: 1.6;
-  color: var(--text-secondary);
-  font-style: italic;
-  margin-bottom: 1rem;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        font-style: italic;
       }
   
       .testimonial-rating {
-        color: #ffd700; /* Mantém a cor dourada para as estrelas */
-  text-align: left; /* Alinha as estrelas com o conteúdo */
+        color: #ffd700;
+        margin-top: 1rem;
       }
-      
+  
       /* Update text colors to use variables */
       .course-content h3,
       .path-content h3,
@@ -650,7 +643,6 @@
       .testimonial-card {
         background: var(--white);
         box-shadow: 0 4px 12px var(--card-shadow);
-        padding: 1rem;
       }
   
       /* Update hover effects for dark mode */
@@ -755,77 +747,96 @@
         transform: translateX(0);
       }
       
-    /* Update/add cube styles */
-    /*  .cube {
-        transform-style: preserve-3d;
-        animation: rotate 20s linear infinite;
+      /* Update/add cube styles */
+      :root {
+        --cube-size: 200px;
+        --cube-half: 100px;
+      }
+  
+      .hero-cube {
+        width: var(--cube-size);
+        height: var(--cube-size);
         perspective: 1000px;
       }
   
-      /* .cube-face {
-        fill: none;
-        stroke: #02b3e4;
-        stroke-width: 2;
-        opacity: 0.3;
-        filter: url(#glow);
-      } */
-  
-    /*    @keyframes rotate {
-        from {
-          transform: rotateX(0) rotateY(0) rotateZ(0);
-        }
-        to {
-          transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
-        }
-      }*/
-  
-      /* Add new footer styles */
-
-      .footer {
-        background: var(--white);
-        padding: 2rem;
-        border-top: 1px solid var(--card-shadow);
+      .cube-container {
+        width: var(--cube-size);
+        height: var(--cube-size);
+        position: relative;
+        transform-style: preserve-3d;
+        animation: rotate 20s infinite linear;
       }
   
-      .footer-content {
-        max-width: 1200px;
-        margin: 0 auto;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-      }
-  
-      .footer-left {
+      .cube-face {
+        position: absolute;
+        width: var(--cube-size);
+        height: var(--cube-size);
         display: flex;
         align-items: center;
-        gap: 2rem;
+        justify-content: center;
+        font-family: monospace;
+        font-size: 1.2rem;
+        color: white;
+        background: rgba(255, 255, 255, 0.1);
+        border: 2px solid rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(2px);
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.9),
+                     0 0 30px rgba(255, 255, 255, 0.7);
       }
   
-      .footer-copyright {
-        color: var(--text-secondary);
-        font-size: 0.9rem;
+      .front { transform: translateZ(var(--cube-half)); }
+      .back { transform: rotateY(180deg) translateZ(var(--cube-half)); }
+      .right { transform: rotateY(90deg) translateZ(var(--cube-half)); }
+      .left { transform: rotateY(-90deg) translateZ(var(--cube-half)); }
+      .top { transform: rotateX(90deg) translateZ(var(--cube-half)); }
+      .bottom { transform: rotateX(-90deg) translateZ(var(--cube-half)); }
+  
+      @keyframes rotate {
+        0% { transform: rotateX(0) rotateY(0) rotateZ(0); }
+        100% { transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg); }
       }
   
-      .footer-phone {
-        color: var(--text-secondary);
-        font-size: 0.9rem;
-        font-weight: 500;
-      }
+      @media screen and (max-width: 768px) {
+        :root {
+          --cube-size: 150px;
+          --cube-half: 75px;
+        }
+        
+        .hero-cube {
+          margin: 2rem auto;
+        }
   
-      .footer-social {
-        display: flex;
-        gap: 1rem;
-      }
+        .cube-container {
+          width: var(--cube-size);
+          height: var(--cube-size);
+          transform-style: preserve-3d;
+        }
   
-      .social-icon {
-        width: 24px;
-        height: 24px;
-        fill: var(--text-secondary);
-        transition: fill 0.3s ease;
-      }
+        .cube-face {
+          width: var(--cube-size);
+          height: var(--cube-size);
+          font-size: 1rem;
+        }
   
-      .social-icon:hover {
-        fill: var(--udacity-blue);
+        .front { transform: translateZ(var(--cube-half)); }
+        .back { transform: rotateY(180deg) translateZ(var(--cube-half)); }
+        .right { transform: rotateY(90deg) translateZ(var(--cube-half)); }
+        .left { transform: rotateY(-90deg) translateZ(var(--cube-half)); }
+        .top { transform: rotateX(90deg) translateZ(var(--cube-half)); }
+        .bottom { transform: rotateX(-90deg) translateZ(var(--cube-half)); }
+  
+        .hero-content {
+          grid-template-columns: 1fr;
+          text-align: center;
+        }
+  
+        .hero-image {
+          margin: 0 auto;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
       }
   
       /* General responsive adjustments */
@@ -836,7 +847,6 @@
         .plans-grid,
         .testimonials-grid {
           padding: 0 20px;
-          
         }
       }
   
@@ -874,7 +884,7 @@
           grid-template-columns: repeat(2, 1fr);
         }
   
-        .cube {       /*revisar isso depois, remover ou nao*/
+        .cube {
           transform: scale(0.8);
         }
       }
@@ -930,7 +940,7 @@
         }
   
         .cube {
-          transform: scale(0.7);    /*remover isso ou nao, revisar depois*/
+          transform: scale(0.7);
         }
   
         .stats-grid {
@@ -942,36 +952,12 @@
           grid-template-columns: 1fr;
           padding: 0 1rem;
         }
-
-        @media (max-width: 768px) {
-  .tech-hologram {
-    position: relative; /* Remover posição absoluta */
-    margin: 0 auto; /* Centraliza o cubo horizontalmente */
-    top: auto; /* Remover ajuste vertical */
-    transform: none; /* Remove o deslocamento */
-    width: 150px; /* Redimensiona o cubo para caber em telas menores */
-    height: 150px;
-  }
-
-  .cube-container {
-    width: 150px; /* Mesma largura que o cubo */
-    height: 150px;
-  }
-
-  .cube {
-    transform: scale(0.8); /* Reduz o tamanho para melhorar a proporção */
-  }
-}
-
   
         .plans-grid {
-            display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajuste automático das colunas */
-  gap: 2rem; /* Espaçamento entre os cartões */
-  justify-items: center; /* Centraliza os cartões no grid */
+          grid-template-columns: 1fr;
         }
   
-        .testimonials-grid {      /* Deixar para ajustar no final. Invalido* aqui, mas deixa ai */
+        .testimonials-grid {
           grid-template-columns: 1fr;
         }
   
@@ -1003,7 +989,7 @@
         }
   
         .cube {
-          transform: scale(0.5); /*remover ou revisar depois*/
+          transform: scale(0.5);
         }
       }
   
@@ -1029,7 +1015,7 @@
         }
   
         .cube {
-          transform: scale(0.6);  /*remover ou revisar depois*/
+          transform: scale(0.6);
         }
       }
   
@@ -1061,97 +1047,130 @@
           display: block;
         }
       }
-
-
-
-      .tech-hologram {
-    position: absolute;
-    right: 10%;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 200px;
-    height: 200px;
-    perspective: 1000px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.cube-container {
-    width: 200px;
-    height: 200px;
-    position: relative;
-    perspective: 1000px;
-}
-
-.cube {
-    width: 100%;
-    height: 100%;
-    position: absolute;
-    transform-style: preserve-3d;
-    animation: cube-rotate 40s infinite linear;
-    will-change: transform;
-
-}
-
-.cube-face {
-    position: absolute;
-    width: 200px;
-    height: 200px;
-    background: rgba(255, 255, 255, 0.1); /* Fundo branco translúcido */
-    border: 2px solid rgba(255, 255, 255, 0.7); /* Borda branca */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-family: 'Space Grotesk', monospace;
-    font-size: 1.2rem;
-    color: #ffffff; /* Texto branco */
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.9), /* Brilho extra */
-    0 0 30px rgba(255, 255, 255, 0.7); /* Sombra maior */
-   /* backdrop-filter: blur(2px); muito pesado para celulares*/   
-   background: rgba(255, 255, 255, 0.2); 
-    overflow: hidden;
-
-}
-
-.front {
-    transform: translateZ(100px);
-}
-
-.back {
-    transform: rotateY(180deg) translateZ(100px);
-}
-
-.right {
-    transform: rotateY(90deg) translateZ(100px);
-}
-
-.left {
-    transform: rotateY(-90deg) translateZ(100px);
-}
-
-.top {
-    transform: rotateX(90deg) translateZ(100px);
-}
-
-.bottom {
-    transform: rotateX(-90deg) translateZ(100px);
-}
-
-@keyframes cube-rotate {
-    0% {
-        transform: rotateX(0) rotateY(0) rotateZ(0);
-    }
-    50% {
-        transform: rotateX(180deg) rotateY(180deg) rotateZ(0);
-    }
-    100% {
-        transform: rotateX(360deg) rotateY(360deg) rotateZ(0);
-    }
-}
-
-
-
+  
+      @media screen and (max-width: 768px) {
+        .featured-courses {
+          padding: 2rem 0.5rem;
+        }
+        
+        .featured-courses h2 {
+          font-size: 2rem;
+          margin-bottom: 1.5rem;
+        }
+      }
+  
+      /* Add these new styles for the cube block */
+      .cube-block {
+        background-color: #02b3e5; /* Match hero background color */
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        margin: 2rem 0;
+        position: relative;
+        width: 300px;
+        height: 300px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+  
+      [data-theme="dark"] .cube-block {
+        background-color: #02b3e5; /* Keep same blue in dark mode */
+        box-shadow: 0 4px 12px rgba(255,255,255,0.1);
+      }
+  
+      /* Update mobile responsiveness for cube block */
+      @media screen and (max-width: 768px) {
+        .cube-block {
+          width: 200px;
+          height: 200px;
+          padding: 1rem;
+          margin: 1rem auto;
+        }
+      }
+  
+      /* Update hero image styles */
+      .hero-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+  
+      /* Update cube container positioning */
+      .hero-cube {
+        position: relative;
+        margin: 0;
+        transform: none;
+      }
+  
+      /* Update the learning paths heading alignment */
+      .learning-paths h2 {
+        text-align: center; /* Center align the heading */
+        margin-bottom: 3rem;
+        width: 100%;
+      }
+  
+      /* Improve footer styling */
+      .footer {
+        background: var(--white);
+        padding: 2rem;
+        border-top: 1px solid var(--card-shadow);
+      }
+  
+      .footer-content {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 2rem;
+      }
+  
+      .footer-left {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+      }
+  
+      .footer-copyright, 
+      .footer-phone {
+        color: var(--text-primary);
+      }
+  
+      .footer-social {
+        display: flex;
+        gap: 1.5rem;
+        align-items: center;
+      }
+  
+      .social-icon {
+        width: 24px;
+        height: 24px;
+        fill: var(--text-primary);
+        transition: transform 0.3s ease;
+      }
+  
+      .social-icon:hover {
+        transform: scale(1.2);
+      }
+  
+      /* Footer responsive adjustments */
+      @media screen and (max-width: 768px) {
+        .footer-content {
+          flex-direction: column;
+          text-align: center;
+        }
+  
+        .footer-left {
+          flex-direction: column;
+          gap: 1rem;
+        }
+  
+        .footer-social {
+          justify-content: center;
+          margin-top: 1rem;
+        }
+      }
     </style>
   </head>
   <body>
@@ -1177,44 +1196,22 @@
     <section class="hero">
       <div class="hero-content">
         <div class="hero-text">
-          <h1 class="floating-animation">Kaapy Cursos</h1>
-          <p>Caminho aberto para o saber</p>
+          <h1 class="floating-animation">Learn the skills to advance your career</h1>
+          <p>Master in-demand skills with real-world projects and expert instructors. Get started today with 40% off!</p>
         </div>
-
-
-  <!-- Cubo Adicionado Aqui -->
-  <div class="tech-hologram">
-    <div class="cube-container">
-      <div class="cube">
-        <div class="cube-face front"></div>
-        <div class="cube-face back"></div>
-        <div class="cube-face right"></div>
-        <div class="cube-face left"></div>
-        <div class="cube-face top"></div>
-        <div class="cube-face bottom"></div>
-      </div>
-    </div>
-  </div>
-  <!-- Fim do Cubo -->
-
-
         <div class="hero-image">
-          <svg width="100%" height="400" viewBox="0 0 600 400">
-            <defs>
-              <linearGradient id="hologram" x1="0%" y1="0%" x2="100%" y2="100%">
-                <stop offset="0%" style="stop-color:rgba(2,179,228,0.4);stop-opacity:1" />
-                <stop offset="100%" style="stop-color:rgba(2,179,228,0.1);stop-opacity:1" />
-              </linearGradient>
-              <filter id="glow">
-                <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-                <feMerge>
-                  <feMergeNode in="coloredBlur"/>
-                  <feMergeNode in="SourceGraphic"/>
-                </feMerge>
-              </filter>
-            </defs>
-            
-          </svg>
+          <div class="cube-block">
+            <div class="hero-cube">
+              <div class="cube-container">
+                <div class="cube-face front">E = mc²</div>
+                <div class="cube-face back">F = ma</div>
+                <div class="cube-face right">∫ f(x)dx</div>
+                <div class="cube-face left">π = 3.14159</div>
+                <div class="cube-face top">∇ × F</div>
+                <div class="cube-face bottom">Σ x²</div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
       <div class="hero-buttons">
@@ -1224,8 +1221,11 @@
       </div>
     </section>
   
+
+ <!-- Section da feactured-courses -->
+
     <section class="featured-courses">
-      <h2>Cursos em Destaque</h2>
+      <h2>Featured Courses</h2>
       <div class="swiper courses-swiper">
         <div class="swiper-wrapper">
           <div class="swiper-slide">
@@ -1349,6 +1349,8 @@
       </div>
     </section>
   
+
+
     <section class="learning-paths">
       <h2>Trilhas de Aprendizado</h2>
       <div class="paths-grid">
@@ -1508,20 +1510,6 @@
           </div>
           <div class="testimonial-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
         </div>
-
-        <div class="testimonial-card">
-            <div class="testimonial-header">
-              <div class="testimonial-avatar">AS</div>
-              <div class="testimonial-info">
-                <h3>Ana Silva</h3>
-                <p>Cientista de Dados</p>
-              </div>
-            </div>
-            <div class="testimonial-content">
-              "A metodologia prática e os projetos reais me deram confiança para entrar no mercado de dados. O curso de Data Science superou todas as minhas expectativas!"
-            </div>
-            <div class="testimonial-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
-          </div>
   
         <div class="testimonial-card">
           <div class="testimonial-header">
@@ -1568,41 +1556,38 @@
     <script>
       // Initialize Swiper
       const coursesSwiper = new Swiper('.courses-swiper', {
-  slidesPerView: 1,
-  spaceBetween: 10, // Reduzi o espaço padrão entre os slides
-  loop: true,
-  autoplay: {
-    delay: 3000,
-    disableOnInteraction: false,
-  },
-  pagination: {
-    el: '.swiper-pagination',
-    clickable: true,
-  },
-  navigation: {
-    nextEl: '.swiper-button-next',
-    prevEl: '.swiper-button-prev',
-  },
-  breakpoints: {
-  
-
-    640: {
-      slidesPerView: 2,
-      spaceBetween: 15, // Ajuste para telas menores
-    },
-
-   
-    1024: {
-      slidesPerView: 3,
-      spaceBetween: 25, // Ajuste para telas maiores
-    },
-    1400: {
-      slidesPerView: 4,
-      spaceBetween: 25, // Controle adicional para telas muito grandes
-    },
-  },
-});
-
+        slidesPerView: 1,
+        spaceBetween: 10,
+        loop: true,
+        autoplay: {
+          delay: 3000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: '.swiper-pagination',
+          clickable: true,
+        },
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+        breakpoints: {
+          640: {
+            slidesPerView: 2,
+            spaceBetween: 30,
+          },
+          1024: {
+            slidesPerView: 3,
+            spaceBetween: 30,
+          },
+        },
+        effect: 'slide',
+        speed: 800,
+        grabCursor: true,
+        keyboard: {
+          enabled: true,
+        },
+      });
   
       // Add mobile menu handling
       const handleMobileMenu = () => {
@@ -1625,12 +1610,15 @@
       const updateCarousel = () => {
         if (window.innerWidth <= 768) {
           coursesSwiper.params.slidesPerView = 1;
+          coursesSwiper.params.spaceBetween = 20;
           coursesSwiper.update();
         } else if (window.innerWidth <= 992) {
           coursesSwiper.params.slidesPerView = 2;
+          coursesSwiper.params.spaceBetween = 30;
           coursesSwiper.update();
         } else {
           coursesSwiper.params.slidesPerView = 3;
+          coursesSwiper.params.spaceBetween = 30;
           coursesSwiper.update();
         }
       };
@@ -1638,11 +1626,31 @@
       window.addEventListener('resize', () => {
         handleMobileMenu();
         updateCarousel();
+        
+        // Update cube size based on viewport
+        const root = document.documentElement;
+        if (window.innerWidth <= 768) {
+          root.style.setProperty('--cube-size', '150px');
+          root.style.setProperty('--cube-half', '75px');
+        } else {
+          root.style.setProperty('--cube-size', '200px');
+          root.style.setProperty('--cube-half', '100px');
+        }
       });
   
       document.addEventListener('DOMContentLoaded', () => {
         handleMobileMenu();
         updateCarousel();
+        
+        // Initialize cube size based on viewport
+        const root = document.documentElement;
+        if (window.innerWidth <= 768) {
+          root.style.setProperty('--cube-size', '150px');
+          root.style.setProperty('--cube-half', '75px');
+        } else {
+          root.style.setProperty('--cube-size', '200px'); 
+          root.style.setProperty('--cube-half', '100px');
+        }
       });
   
       const observerOptions = {
@@ -1705,34 +1713,31 @@
           });
         });
       });
-
-       // Código do cubo
-       document.addEventListener('DOMContentLoaded', () => {
-    const contents = ['E = mc²', 'F = ma', '∫ f(x)dx', 'π = 3.14159', 'print("Hello")', 'import numpy', 'd/dx(sin x) = cos x', 'def main():'];
-    const faces = document.querySelectorAll('.cube-face');
-    let currentIndices = Array(faces.length).fill(0); // Mantém o índice atual de cada face
+      const formulas = [
+        'E = mc²',
+        'F = ma',
+        '∫ f(x)dx',
+        'π = 3.14159', 
+        'print("Hello")',
+        'import numpy',
+        'd/dx(sin x) = cos x',
+        'def main():'
+      ];
   
-    function updateFaceContent(face, index) {
-      // Atualiza o conteúdo de uma face específica
-      face.textContent = contents[currentIndices[index]];
-      currentIndices[index] = (currentIndices[index] + 1) % contents.length; // Move para o próximo índice
-    }
+      let currentFormulaIndex = 0;
   
-    function startFaceUpdates() {
-      faces.forEach((face, index) => {
-        // Atualiza cada face em intervalos de 2 segundos
-        setInterval(() => {
-          updateFaceContent(face, index);
-        }, 5000); // 2 segundos por atualização
+      function updateCubeFaces() {
+        const faces = document.querySelectorAll('.cube-face');
+        faces.forEach(face => {
+          face.textContent = formulas[currentFormulaIndex];
+        });
+        currentFormulaIndex = (currentFormulaIndex + 1) % formulas.length;
+      }
+  
+      setInterval(updateCubeFaces, 3000);
+      document.addEventListener('DOMContentLoaded', () => {
+        updateCubeFaces();
       });
-    }
-  
-    // Inicializa a troca de textos
-    startFaceUpdates();
-  });
-
-
-
     </script>
   </body>
   </html>
