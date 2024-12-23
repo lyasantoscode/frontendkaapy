@@ -1,0 +1,1508 @@
+<html><head><base href="https://unpkg.com">
+  <meta charset="UTF-8">
+  <title>KAAPY - Be in Demand</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+  <style>
+    /* Update CSS root variables */
+    :root {
+      --udacity-blue: #02b3e4;
+      --dark-blue: #2e3d49;
+      --light-gray: #f7f7f7;
+      --white: #ffffff;
+      --text-primary: #2e3d49;
+      --text-secondary: #666;
+      --card-shadow: rgba(0,0,0,0.1);
+    }
+
+    [data-theme="dark"] {
+      --udacity-blue: #00d8ff;
+      --dark-blue: #ffffff;
+      --light-gray: #1a1a1a;
+      --white: #32302f;
+      --text-primary: #ffffff;
+      --text-secondary: #aaa;
+      --card-shadow: rgba(255,255,255,0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Open Sans', sans-serif;
+    }
+
+    body {
+      background-color: var(--white);
+      color: var(--text-primary);
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    .header {
+      padding: 1rem 2rem;
+      background: var(--white);
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      position: fixed;
+      width: 100%;
+      z-index: 100;
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--udacity-blue);
+      letter-spacing: 1px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+    }
+
+    .nav-links a {
+      color: var(--text-primary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.5px;
+      padding: 8px 16px;
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover {
+      background-color: var(--udacity-blue);
+      color: var(--white);
+    }
+
+    .theme-toggle {
+      background: none;
+      border: none;
+      cursor: pointer;
+      width: 40px;
+      height: 40px;
+      padding: 8px;
+      border-radius: 50%;
+      transition: background-color 0.3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .theme-toggle:hover {
+      background-color: rgba(0,0,0,0.1);
+    }
+
+    [data-theme="dark"] .theme-toggle:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    .sun-icon, .moon-icon {
+      width: 24px;
+      height: 24px;
+      fill: var(--text-primary);
+      transition: transform 0.3s ease;
+    }
+
+    .sun-icon {
+      display: block;
+    }
+
+    .moon-icon {
+      display: none;
+    }
+
+    [data-theme="dark"] .sun-icon {
+      display: none;
+    }
+
+    [data-theme="dark"] .moon-icon {
+      display: block;
+    }
+
+    .hero {
+      position: relative; 
+      padding: 8rem 2rem 6rem;
+      background-color: #02b3e5;
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+      color: var(--white);
+    }
+
+    .hero-text h1 {
+      font-size: 3.5rem;
+      margin-bottom: 1.5rem;
+      line-height: 1.2;
+      color: var(--white);
+    }
+
+    .hero-text p {
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      color: var(--white);
+    }
+
+    .cta-button {
+      background: var(--white);
+      color: var(--udacity-blue);
+      padding: 1rem 2.5rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1.1rem;
+      transition: transform 0.3s ease;
+    }
+
+    .cta-button:hover {
+      transform: translateY(-2px);
+    }
+
+    .featured-courses, .learning-paths {
+      padding: 4rem 2rem;
+      background: var(--light-gray);
+    }
+
+    .featured-courses h2, .learning-paths h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .courses-swiper {
+      padding: 20px 50px;
+      position: relative;
+    }
+
+    .swiper-button-next,
+    .swiper-button-prev {
+      color: var(--udacity-blue);
+    }
+
+    .swiper-pagination-bullet {
+      background: var(--udacity-blue);
+    }
+
+    .swiper-pagination-bullet-active {
+      background: var(--udacity-blue);
+    }
+
+    .swiper-slide {
+      height: auto;
+      transition: transform 0.3s ease;
+    }
+
+    [data-theme="dark"] .swiper-button-next,
+    [data-theme="dark"] .swiper-button-prev {
+      color: var(--udacity-blue);
+    }
+
+    @media screen and (max-width: 768px) {
+      .courses-swiper {
+        padding: 20px 30px;
+      }
+    }
+
+    .course-card {
+      flex: 0 0 350px; 
+      max-width: 350px;
+      margin-bottom: 1rem;
+    }
+
+    .course-card:hover {
+      transform: translateY(-8px);
+    }
+
+    [data-theme="dark"] .course-card:hover {
+      box-shadow: 0 8px 24px var(--card-shadow);
+    }
+
+    .course-image, .path-image {
+      height: 200px;
+      background: var(--udacity-blue);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .course-content, .path-content {
+      padding: 1.5rem;
+    }
+
+    .course-content h3, .path-content h3 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .course-info, .path-info {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .course-rating, .path-rating {
+      color: #ffd700;
+    }
+
+    .course-duration, .path-duration {
+      color: var(--text-secondary);
+    }
+
+    .course-price, .path-price {
+      font-weight: bold;
+      color: var(--udacity-blue);
+      font-size: 1.2rem;
+    }
+
+    .stats-section {
+      padding: 4rem 2rem;
+      background: var(--white);
+      text-align: center;
+    }
+
+    .stats-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem;
+    }
+
+    .stat-item h2 {
+      color: var(--udacity-blue);
+      font-size: 2.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .floating-animation {
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .path-icon {
+      width: 60px;
+      height: 60px;
+    }
+
+    [data-theme="dark"] .path-icon {
+      fill: #00d8ff;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0); }
+    }
+
+    .learning-paths {
+      background: var(--white);
+    }
+
+    .path-card {
+      padding: 2.5rem;
+      border-radius: 16px;
+      transition: all 0.3s ease;
+      background: var(--white);
+      border: 2px solid transparent;
+      height: 100%;
+      min-height: 300px;
+      width: 100%;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .path-card:hover {
+      transform: translateY(-8px);
+      border: 2px solid var(--udacity-blue);
+      box-shadow: 0 8px 24px var(--card-shadow);
+    }
+
+    .path-card h3 {
+      font-size: 1.5rem;
+      margin: 1rem 0;
+      color: var(--text-primary);
+    }
+
+    .path-card .path-description {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      flex-grow: 1;
+    }
+
+    .tech-list {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      padding-top: 1rem;
+      border-top: 1px solid var(--card-shadow);
+    }
+
+    .paths-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      padding: 0 2rem;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .path-icon {
+      width: 48px;
+      height: 48px;
+      fill: var(--udacity-blue);
+      transition: all 0.3s ease;
+    }
+
+    .path-card:hover .path-icon {
+      transform: scale(1.1);
+    }
+
+    [data-theme="dark"] .path-card:hover {
+      border: 2px solid var(--udacity-blue);
+    }
+
+    .plans-section {
+      padding: 4rem 2rem;
+      background: var(--udacity-blue);
+      color: var(--white);
+    }
+
+    .plans-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .plans-section p {
+      text-align: center;
+      font-size: 1.2rem;
+      margin-bottom: 3rem;
+    }
+
+    .plans-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .plan-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 2rem;
+      color: var(--text-primary);
+      text-align: center;
+      transition: transform 0.3s ease;
+    }
+
+    .plan-card:hover {
+      transform: translateY(-8px);
+    }
+
+    [data-theme="dark"] .plan-card:hover {
+      box-shadow: 0 8px 24px var(--card-shadow);
+    }
+
+    .plan-card.recommended {
+      position: relative;
+      border: 2px solid var(--udacity-blue);
+    }
+
+    .plan-card.recommended::before {
+      content: 'Recomendado';
+      position: absolute;
+      top: -12px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: var(--udacity-blue);
+      color: white;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-size: 0.9rem;
+    }
+
+    .plan-name {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 1rem;
+    }
+
+    .plan-price {
+      font-size: 2.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+
+    .plan-period {
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .plan-features {
+      list-style: none;
+      margin-bottom: 2rem;
+    }
+
+    .plan-features li {
+      margin: 1rem 0;
+      color: var(--text-secondary);
+    }
+
+    .plan-features li::before {
+      content: '✓';
+      color: var(--udacity-blue);
+      margin-right: 8px;
+    }
+
+    .plan-savings {
+      color: #22c55e;
+      font-weight: bold;
+      margin-top: -1rem;
+      margin-bottom: 1rem;
+    }
+
+    .testimonials-section {
+      padding: 4rem 2rem;
+      background: var(--light-gray);
+    }
+
+    .testimonials-section h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 3rem;
+    }
+
+    .testimonials-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .testimonial-card {
+      background: var(--white);
+      border-radius: 12px;
+      padding: 2rem;
+      box-shadow: 0 4px 12px var(--card-shadow);
+      transition: transform 0.3s ease;
+    }
+
+    .testimonial-card:hover {
+      transform: translateY(-8px);
+    }
+
+    [data-theme="dark"] .testimonial-card:hover {
+      box-shadow: 0 8px 24px var(--card-shadow);
+    }
+
+    .testimonial-header {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .testimonial-avatar {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      margin-right: 1rem;
+      background: var(--udacity-blue);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--white);
+      font-size: 1.5rem;
+      font-weight: bold;
+    }
+
+    .testimonial-info h3 {
+      color: var(--text-primary);
+      margin-bottom: 0.25rem;
+    }
+
+    .testimonial-info p {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .testimonial-content {
+      color: var(--text-secondary);
+      line-height: 1.6;
+      font-style: italic;
+    }
+
+    .testimonial-rating {
+      color: #ffd700;
+      margin-top: 1rem;
+    }
+
+    /* Update text colors to use variables */
+    .course-content h3,
+    .path-content h3,
+    .testimonial-info h3,
+    .plan-name,
+    .hero-content h1,
+    .featured-courses h2,
+    .learning-paths h2,
+    .testimonials-section h2,
+    .stat-item h2,
+    .path-description {
+      color: var(--text-primary);
+    }
+
+    .course-duration,
+    .path-duration,
+    .testimonial-info p,
+    .plan-period,
+    .plan-features li,
+    .path-description,
+    .tech-list {
+      color: var(--text-secondary);
+    }
+
+    /* Update card backgrounds and shadows */
+    .course-card,
+    .path-card,
+    .plan-card,
+    .testimonial-card {
+      background: var(--white);
+      box-shadow: 0 4px 12px var(--card-shadow);
+    }
+
+    /* Update hover effects for dark mode */
+    [data-theme="dark"] .theme-toggle:hover {
+      background-color: rgba(255,255,255,0.1);
+    }
+
+    [data-theme="dark"] .course-card:hover,
+    [data-theme="dark"] .path-card:hover,
+    [data-theme="dark"] .plan-card:hover,
+    [data-theme="dark"] .testimonial-card:hover {
+      box-shadow: 0 8px 24px var(--card-shadow);
+    }
+
+    /* Update section backgrounds */
+    .featured-courses,
+    .learning-paths,
+    .testimonials-section {
+      background: var(--light-gray);
+    }
+
+    .plans-section {
+      background: var(--udacity-blue);
+      color: var(--white);
+    }
+
+    /* Update nav links */
+    .nav-links a {
+      color: var(--text-primary);
+    }
+
+    /* Ensure SVG icons adapt to theme */
+    .sun-icon,
+    .moon-icon,
+    .path-icon {
+      fill: var(--text-primary);
+    }
+
+    /* Add transition properties for smooth theme switching */
+    body,
+    .course-card,
+    .path-card,
+    .plan-card,
+    .testimonial-card,
+    .nav-links a,
+    .sun-icon,
+    .moon-icon,
+    .path-icon,
+    h1, h2, h3, p {
+      transition: var(--theme-transition, none);
+    }
+    
+    /* Add new styles for the button container */
+    .hero-buttons {
+      position: absolute;
+      bottom: -25px; 
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      width: 100%;
+      max-width: 800px;
+      z-index: 10;
+    }
+
+    /* Style for the new action buttons */
+    .action-button {
+      background: var(--white);
+      color: var(--udacity-blue);
+      padding: 1rem 2rem;
+      border-radius: 25px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .action-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      background: var(--udacity-blue);
+      color: var(--white);
+    }
+
+    .action-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(255,255,255,0.1);
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+    }
+
+    .action-button:hover::after {
+      transform: translateX(0);
+    }
+    
+    /* Update/add cube styles */
+    .cube {
+      transform-style: preserve-3d;
+      animation: rotate 20s linear infinite;
+      perspective: 1000px;
+    }
+
+    .cube-face {
+      fill: none;
+      stroke: #02b3e4;
+      stroke-width: 2;
+      opacity: 0.3;
+      filter: url(#glow);
+    }
+
+    @keyframes rotate {
+      from {
+        transform: rotateX(0) rotateY(0) rotateZ(0);
+      }
+      to {
+        transform: rotateX(360deg) rotateY(360deg) rotateZ(360deg);
+      }
+    }
+
+    /* Add new footer styles */
+    .footer {
+      background: var(--white);
+      padding: 2rem;
+      border-top: 1px solid var(--card-shadow);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-left {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+    }
+
+    .footer-copyright {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+    }
+
+    .footer-phone {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .footer-social {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-icon {
+      width: 24px;
+      height: 24px;
+      fill: var(--text-secondary);
+      transition: fill 0.3s ease;
+    }
+
+    .social-icon:hover {
+      fill: var(--udacity-blue);
+    }
+
+    /* General responsive adjustments */
+    @media screen and (max-width: 1200px) {
+      .hero-content,
+      .stats-grid,
+      .paths-grid,
+      .plans-grid,
+      .testimonials-grid {
+        padding: 0 20px;
+      }
+    }
+
+    /* Tablets and smaller desktops */
+    @media screen and (max-width: 992px) {
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .hero-text h1 {
+        font-size: 2.8rem;
+      }
+
+      .hero-text p {
+        font-size: 1.1rem;
+      }
+
+      .hero-buttons {
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .action-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .paths-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .cube {
+        transform: scale(0.8);
+      }
+    }
+
+    /* Mobile devices */
+    @media screen and (max-width: 768px) {
+      .header {
+        padding: 0.5rem;
+      }
+
+      .nav-container {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .logo {
+        font-size: 1.5rem;
+      }
+
+      .nav-links {
+        flex-direction: column;
+        width: 100%;
+        text-align: center;
+        gap: 0.5rem;
+      }
+
+      .hero {
+        padding: 6rem 1rem 4rem;
+      }
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+
+      .hero-text p {
+        font-size: 1rem;
+      }
+
+      .hero-buttons {
+        flex-direction: column;
+        padding: 1rem;
+      }
+
+      .action-button {
+        width: 100%;
+        margin: 0.5rem 0;
+      }
+
+      .cube {
+        transform: scale(0.7);
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+      }
+
+      .paths-grid {
+        grid-template-columns: 1fr;
+        padding: 0 1rem;
+      }
+
+      .plans-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .testimonials-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 1.5rem;
+        text-align: center;
+      }
+
+      .footer-left {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+    }
+
+    /* Small mobile devices */
+    @media screen and (max-width: 480px) {
+      .hero-text h1 {
+        font-size: 1.8rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .course-card {
+        width: 100%;
+        max-width: none;
+      }
+
+      .cube {
+        transform: scale(0.5);
+      }
+    }
+
+    /* Fix for course carousel on mobile */
+    @media screen and (max-width: 768px) {
+      .courses-swiper {
+        scroll-snap-type: x mandatory;
+        scroll-behavior: smooth;
+        -webkit-overflow-scrolling: touch;
+        overflow-x: auto;
+      }
+
+      .swiper-slide {
+        scroll-snap-align: start;
+      }
+    }
+
+    /* Ensure the cube is visible but scaled appropriately on mobile */
+    @media screen and (max-width: 768px) {
+      .hero-image {
+        max-width: 100%;
+        overflow: hidden;
+      }
+
+      .cube {
+        transform: scale(0.6);
+      }
+    }
+
+    /* Improve dark mode contrast on mobile */
+    @media screen and (max-width: 768px) {
+      [data-theme="dark"] .nav-links a {
+        background: rgba(255,255,255,0.1);
+      }
+
+      [data-theme="dark"] .path-card,
+      [data-theme="dark"] .plan-card,
+      [data-theme="dark"] .testimonial-card {
+        background: rgba(255,255,255,0.05);
+      }
+    }
+
+    /* Add mobile menu button styles */
+    .mobile-menu-button {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--text-primary);
+    }
+
+    @media screen and (max-width: 768px) {
+      .mobile-menu-button {
+        display: block;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="nav-container">
+      <div class="logo">KAAPY</div>
+      <nav class="nav-links">
+        <a href="https://kaapy.com/how-it-works">COMO FUNCIONA</a>
+        <a href="https://kaapy.com/login">ENTRAR</a>
+        <a href="https://kaapy.com/register">CADASTRAR-SE</a>
+        <button id="theme-toggle" class="theme-toggle">
+          <svg class="sun-icon" viewBox="0 0 24 24">
+            <path d="M12,3C7.58,3 4,4.79 4,7C4,9.21 7.58,11 12,11C16.42,11 20,9.21 20,7C20,4.79 16.42,3 12,3M4,9V12C4,14.21 7.58,16 12,16C16.42,16 20,14.21 20,12V9C20,11.21 16.42,13 12,13C7.58,13 4,11.21 4,9M4,14V17C4,19.21 7.58,21 12,21C16.42,21 20,19.21 20,17V14C20,16.21 16.42,18 12,18C7.58,18 4,16.21 4,14Z"/>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24">
+            <path d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"/>
+          </svg>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="floating-animation">Learn the skills to advance your career</h1>
+        <p>Master in-demand skills with real-world projects and expert instructors. Get started today with 40% off!</p>
+      </div>
+      <div class="hero-image">
+        <svg width="100%" height="400" viewBox="0 0 600 400">
+          <defs>
+            <linearGradient id="hologram" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" style="stop-color:rgba(2,179,228,0.4);stop-opacity:1" />
+              <stop offset="100%" style="stop-color:rgba(2,179,228,0.1);stop-opacity:1" />
+            </linearGradient>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+              <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+              </feMerge>
+            </filter>
+          </defs>
+          <g class="cube" transform="translate(300, 200)">
+            <!-- Front face -->
+            <path class="cube-face" d="M-100,-100 L100,-100 L100,100 L-100,100 Z" />
+            <!-- Back face -->
+            <path class="cube-face" d="M-100,-100 L100,-100 L100,100 L-100,100 Z" transform="translate(0,0,-200)" />
+            <!-- Left face -->
+            <path class="cube-face" d="M-100,-100 L-100,100 L-100,100 L-100,-100 Z" transform="rotateY(-90deg) translate(-100,0)" />
+            <!-- Right face -->
+            <path class="cube-face" d="M100,-100 L100,100 L100,100 L100,-100 Z" transform="rotateY(90deg) translate(100,0)" />
+            <!-- Top face -->
+            <path class="cube-face" d="M-100,-100 L100,-100 L100,-100 L-100,-100 Z" transform="rotateX(90deg) translate(0,-100)" />
+            <!-- Bottom face -->
+            <path class="cube-face" d="M-100,100 L100,100 L100,100 L-100,100 Z" transform="rotateX(-90deg) translate(0,100)" />
+            
+            <!-- Connecting edges -->
+            <line class="cube-face" x1="-100" y1="-100" x2="-100" y2="-100" transform="translate(0,0,-200)" />
+            <line class="cube-face" x1="100" y1="-100" x2="100" y2="-100" transform="translate(0,0,-200)" />
+            <line class="cube-face" x1="100" y1="100" x2="100" y2="100" transform="translate(0,0,-200)" />
+            <line class="cube-face" x1="-100" y1="100" x2="-100" y2="100" transform="translate(0,0,-200)" />
+          </g>
+        </svg>
+      </div>
+    </div>
+    <div class="hero-buttons">
+      <a href="https://kaapy.com/plans" class="action-button">VEJA OS PLANOS</a>
+      <a href="https://kaapy.com/courses" class="action-button">CURSO ONLINE</a>
+      <a href="https://kaapy.com/teach" class="action-button">QUERO ENSINAR</a>
+    </div>
+  </section>
+
+  <section class="featured-courses">
+    <h2>Featured Courses</h2>
+    <div class="swiper courses-swiper">
+      <div class="swiper-wrapper">
+        <div class="swiper-slide">
+          <div class="course-card">
+            <div class="course-image">
+              <svg width="100%" height="100%" viewBox="0 0 300 200">
+                <rect width="100%" height="100%" fill="#02b3e4" opacity="0.2"/>
+                <circle cx="150" cy="100" r="50" fill="#02b3e4" opacity="0.3"/>
+              </svg>
+            </div>
+            <div class="course-content">
+              <h3>Deep Learning</h3>
+              <div class="course-info">
+                <div class="course-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+                <div class="course-duration">4 months</div>
+              </div>
+              <p>Master deep learning fundamentals and build neural networks</p>
+              <div class="course-price">&#x24;399</div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="course-card">
+            <div class="course-image">
+              <svg width="100%" height="100%" viewBox="0 0 300 200">
+                <rect width="100%" height="100%" fill="#02b3e4" opacity="0.2"/>
+                <circle cx="150" cy="100" r="50" fill="#02b3e4" opacity="0.3"/>
+              </svg>
+            </div>
+            <div class="course-content">
+              <h3>Data Engineering with AWS</h3>
+              <div class="course-info">
+                <div class="course-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#xbd;</div>
+                <div class="course-duration">5 months</div>
+              </div>
+              <p>Learn to design and build data infrastructure at scale</p>
+              <div class="course-price">&#x24;499</div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="course-card">
+            <div class="course-image">
+              <svg width="100%" height="100%" viewBox="0 0 300 200">
+                <rect width="100%" height="100%" fill="#02b3e4" opacity="0.2"/>
+                <circle cx="150" cy="100" r="50" fill="#02b3e4" opacity="0.3"/>
+              </svg>
+            </div>
+            <div class="course-content">
+              <h3>Full Stack Development</h3>
+              <div class="course-info">
+                <div class="course-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+                <div class="course-duration">6 months</div>
+              </div>
+              <p>Become a full stack web developer with modern technologies</p>
+              <div class="course-price">&#x24;599</div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="course-card">
+            <div class="course-image">
+              <svg width="100%" height="100%" viewBox="0 0 300 200">
+                <rect width="100%" height="100%" fill="#02b3e4" opacity="0.2"/>
+                <circle cx="150" cy="100" r="50" fill="#02b3e4" opacity="0.3"/>
+              </svg>
+            </div>
+            <div class="course-content">
+              <h3>Machine Learning</h3>
+              <div class="course-info">
+                <div class="course-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+                <div class="course-duration">3 months</div>
+              </div>
+              <p>Learn fundamental ML algorithms and applications</p>
+              <div class="course-price">$299</div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="course-card">
+            <div class="course-image">
+              <svg width="100%" height="100%" viewBox="0 0 300 200">
+                <rect width="100%" height="100%" fill="#02b3e4" opacity="0.2"/>
+                <circle cx="150" cy="100" r="50" fill="#02b3e4" opacity="0.3"/>
+              </svg>
+            </div>
+            <div class="course-content">
+              <h3>Cloud Computing</h3>
+              <div class="course-info">
+                <div class="course-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#xbd;</div>
+                <div class="course-duration">4 months</div>
+              </div>
+              <p>Master cloud platforms and deployment</p>
+              <div class="course-price">$449</div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-slide">
+          <div class="course-card">
+            <div class="course-image">
+              <svg width="100%" height="100%" viewBox="0 0 300 200">
+                <rect width="100%" height="100%" fill="#02b3e4" opacity="0.2"/>
+                <circle cx="150" cy="100" r="50" fill="#02b3e4" opacity="0.3"/>
+              </svg>
+            </div>
+            <div class="course-content">
+              <h3>Mobile Development</h3>
+              <div class="course-info">
+                <div class="course-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+                <div class="course-duration">5 months</div>
+              </div>
+              <p>Build iOS and Android applications</p>
+              <div class="course-price">$499</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="swiper-button-next"></div>
+      <div class="swiper-button-prev"></div>
+      <div class="swiper-pagination"></div>
+    </div>
+  </section>
+
+  <section class="learning-paths">
+    <h2>Trilhas de Aprendizado</h2>
+    <div class="paths-grid">
+      <div class="path-card">
+        <svg class="path-icon" viewBox="0 0 24 24">
+          <path d="M12,3L1 9L12 15L21 10.09V17H23V9M5 13.18V17.18L12 21L19 17.18V13.18L12 17L5 13.18Z"/>
+        </svg>
+        <h3>Matemática Avançada</h3>
+        <p class="path-description">Domine cálculo, álgebra linear e estatística aplicada à tecnologia</p>
+        <div class="tech-list">Cálculo • Álgebra Linear • Probabilidade • Estatística</div>
+      </div>
+
+      <div class="path-card">
+        <svg class="path-icon" viewBox="0 0 24 24">
+          <path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"/>
+        </svg>
+        <h3>Física Computacional</h3>
+        <p class="path-description">Aprenda simulações físicas e modelagem computacional</p>
+        <div class="tech-list">Mecânica • Termodinâmica • Python • MATLAB</div>
+      </div>
+
+      <div class="path-card">
+        <svg class="path-icon" viewBox="0 0 24 24">
+          <path d="M12,3C7.58,3 4,4.79 4,7C4,9.21 7.58,11 12,11C16.42,11 20,9.21 20,7C20,4.79 16.42,3 12,3M4,9V12C4,14.21 7.58,16 12,16C16.42,16 20,14.21 20,12V9C20,11.21 16.42,13 12,13C7.58,13 4,11.21 4,9M4,14V17C4,19.21 7.58,21 12,21C16.42,21 20,19.21 20,17V14C20,16.21 16.42,18 12,18C7.58,18 4,16.21 4,14Z"/>
+        </svg>
+        <h3>Ciência de Dados</h3>
+        <p class="path-description">Análise de dados e machine learning com projetos práticos</p>
+        <div class="tech-list">Python • R • SQL • TensorFlow</div>
+      </div>
+
+      <div class="path-card">
+        <svg class="path-icon" viewBox="0 0 24 24">
+          <path d="M13.71,17.86C14.21,18.84 15.22,19.59 16.8,19.59C18.4,19.59 19.6,18.76 19.6,17.23C19.6,15.82 18.79,15.19 17.35,14.57L16.93,14.39C16.2,14.08 15.89,13.87 15.89,13.37C15.89,12.96 16.2,12.64 16.7,12.64C17.18,12.64 17.5,12.85 17.79,13.37L19.1,12.5C18.55,11.54 17.77,11.17 16.7,11.17C15.19,11.17 14.22,12.13 14.22,13.4C14.22,14.78 15.03,15.43 16.25,15.95L16.67,16.13C17.45,16.47 17.91,16.68 17.91,17.26C17.91,17.74 17.46,18.09 16.76,18.09C15.93,18.09 15.45,17.66 15.09,17.06L13.71,17.86Z"/>
+        </svg>
+        <h3>Desenvolvimento Web</h3>
+        <p class="path-description">Full stack development com tecnologias modernas</p>
+        <div class="tech-list">JavaScript • React • Node.js • MongoDB</div>
+      </div>
+
+      <div class="path-card">
+        <svg class="path-icon" viewBox="0 0 24 24">
+          <path d="M17.75,4.09L15.22,6.03L16.13,9.09L13.5,7.28L10.87,9.09L11.78,6.03L9.25,4.09L12.44,4L13.5,1L14.56,4L17.75,4.09M21.25,11L19.61,12.25L20.2,14.23L18.5,13.06L16.8,14.23L17.39,12.25L15.75,11L17.81,10.95L18.5,9L19.19,10.95L21.25,11M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"/>
+        </svg>
+        <h3>Inteligência Artificial</h3>
+        <p class="path-description">Machine learning e deep learning aplicados</p>
+        <div class="tech-list">Python • PyTorch • TensorFlow • Keras</div>
+      </div>
+
+      <div class="path-card">
+        <svg class="path-icon" viewBox="0 0 24 24">
+          <path d="M13.71,17.86C14.21,18.84 15.22,19.59 16.8,19.59C18.4,19.59 19.6,18.76 19.6,17.23C19.6,15.82 18.79,15.19 17.35,14.57L16.93,14.39C16.2,14.08 15.89,13.87 15.89,13.37C15.89,12.96 16.2,12.64 16.7,12.64C17.18,12.64 17.5,12.85 17.79,13.37L19.1,12.5C18.55,11.54 17.77,11.17 16.7,11.17C15.19,11.17 14.22,12.13 14.22,13.4C14.22,14.78 15.03,15.43 16.25,15.95L16.67,16.13C17.45,16.47 17.91,16.68 17.91,17.26C17.91,17.74 17.46,18.09 16.76,18.09C15.93,18.09 15.45,17.66 15.09,17.06L13.71,17.86Z"/>
+        </svg>
+        <h3>JavaScript Avançado</h3>
+        <p class="path-description">Domine JavaScript moderno e seus frameworks</p>
+        <div class="tech-list">ES6+ • React • Vue.js • Node.js</div>
+      </div>
+    </div>
+  </section>
+
+  <section class="plans-section">
+    <h2>Inscreva-se</h2>
+    <p>Os Planos dão Acesso a Todos os Cursos</p>
+    <div class="plans-grid">
+      <div class="plan-card">
+        <div class="plan-name">Mensal</div>
+        <div class="plan-price">R$ 120</div>
+        <div class="plan-period">por mês</div>
+        <ul class="plan-features">
+          <li>1 Mês de Acesso</li>
+          <li>Acesso a Todos os Cursos</li>
+          <li>Mais de 1460 Aulas</li>
+          <li>Certificado de Conclusão</li>
+        </ul>
+        <a href="https://www.udacity.com/signup" class="cta-button">Começar agora</a>
+      </div>
+
+      <div class="plan-card recommended">
+        <div class="plan-name">Anual</div>
+        <div class="plan-price">R$ 39</div>
+        <div class="plan-period">até 12x ou R$ 468 à vista</div>
+        <div class="plan-savings">economize 67%</div>
+        <ul class="plan-features">
+          <li>12 Meses de Acesso</li>
+          <li>Acesso a Todos os Cursos</li>
+          <li>Mais de 1460 Aulas</li>
+          <li>Certificado de Conclusão</li>
+          <li>Suporte</li>
+        </ul>
+        <a href="https://www.udacity.com/signup" class="cta-button">Começar agora</a>
+      </div>
+
+      <div class="plan-card">
+        <div class="plan-name">Vitalício</div>
+        <div class="plan-price">R$ 120</div>
+        <div class="plan-period">até 12x ou R$ 1440 à vista</div>
+        <ul class="plan-features">
+          <li>Acesso Vitalício Ilimitado</li>
+          <li>Acesso a Todos os Cursos</li>
+          <li>Mais de 1460 Aulas</li>
+          <li>Certificado de Conclusão</li>
+          <li>Suporte Premium</li>
+          <li>Download das aulas</li>
+        </ul>
+        <a href="https://www.udacity.com/signup" class="cta-button">Começar agora</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="stats-section">
+    <div class="stats-grid">
+      <div class="stat-item">
+        <h2>100k+</h2>
+        <p>Graduates</p>
+      </div>
+      <div class="stat-item">
+        <h2>200+</h2>
+        <p>Industry Experts</p>
+      </div>
+      <div class="stat-item">
+        <h2>400+</h2>
+        <p>Enterprise Partners</p>
+      </div>
+      <div class="stat-item">
+        <h2>85%</h2>
+        <p>Success Rate</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="testimonials-section">
+    <h2>O que Dizem Nossos Alunos</h2>
+    <div class="testimonials-grid">
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">MB</div>
+          <div class="testimonial-info">
+            <h3>Marcos Braga</h3>
+            <p>Desenvolvedor Full Stack</p>
+          </div>
+        </div>
+        <div class="testimonial-content">
+          "Os cursos da Udacity transformaram minha carreira. A qualidade do conteúdo e o suporte dos instrutores são excepcionais. Consegui uma promoção após concluir o curso de Full Stack!"
+        </div>
+        <div class="testimonial-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">AS</div>
+          <div class="testimonial-info">
+            <h3>Ana Silva</h3>
+            <p>Cientista de Dados</p>
+          </div>
+        </div>
+        <div class="testimonial-content">
+          "A metodologia prática e os projetos reais me deram confiança para entrar no mercado de dados. O curso de Data Science superou todas as minhas expectativas!"
+        </div>
+        <div class="testimonial-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#x2605;</div>
+      </div>
+
+      <div class="testimonial-card">
+        <div class="testimonial-header">
+          <div class="testimonial-avatar">RL</div>
+          <div class="testimonial-info">
+            <h3>Rafael Lima</h3>
+            <p>Engenheiro de IA</p>
+          </div>
+        </div>
+        <div class="testimonial-content">
+          "O curso de Inteligência Artificial me proporcionou uma base sólida para trabalhar com tecnologias avançadas. Os projetos práticos fizeram toda a diferença no aprendizado."
+        </div>
+        <div class="testimonial-rating">&#x2605;&#x2605;&#x2605;&#x2605;&#xbd;</div>
+      </div>
+    </div>
+  </section>
+  
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-left">
+        <div class="footer-copyright"> 2024 KAAPY</div>
+        <div class="footer-phone">1-888-674-3175</div>
+      </div>
+      <div class="footer-social">
+        <a href="https://facebook.com/kaapy" target="_blank">
+          <svg class="social-icon" viewBox="0 0 24 24">
+            <path d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/>
+          </svg>
+        </a>
+        <a href="https://youtube.com/kaapy" target="_blank">
+          <svg class="social-icon" viewBox="0 0 24 24">
+            <path d="M10,15L15.19,12L10,9V15M21.56,7.17C21.69,7.64 21.78,8.27 21.84,9.07C21.91,9.87 21.94,10.56 21.94,11.16L22,12C22,14.19 21.84,15.8 21.56,16.83C21.31,17.73 20.73,18.31 19.83,18.56C19.36,18.69 18.5,18.78 17.18,18.84C15.88,18.91 14.69,18.94 13.59,18.94L12,19C7.81,19 5.2,18.84 4.17,18.56C3.27,18.31 2.69,17.73 2.44,16.83C2.31,16.36 2.22,15.73 2.16,14.93C2.09,14.13 2.06,13.44 2.06,12.84L2,12C2,9.81 2.16,8.2 2.44,7.17C2.69,6.27 3.27,5.69 4.17,5.44C4.64,5.31 5.5,5.22 6.82,5.16C8.12,5.09 9.31,5.06 10.41,5.06L12,5C16.19,5 18.8,5.16 19.83,5.44C20.73,5.69 21.31,6.27 21.56,7.17Z"/>
+          </svg>
+        </a>
+        <a href="https://instagram.com/kaapy" target="_blank">
+          <svg class="social-icon" viewBox="0 0 24 24">
+            <path d="M7.8,2H16.2C19.4,2 22,4.6 22,7.8V16.2A5.8,5.8 0 0,1 16.2,22H7.8C4.6,22 2,19.4 2,16.2V7.8A5.8,5.8 0 0,1 7.8,2M7.6,4A3.6,3.6 0 0,0 4,7.6V16.4C4,18.39 5.61,20 7.6,20H16.4A3.6,3.6 0 0,0 20,16.4V7.6C20,5.61 18.39,4 16.4,4H7.6M17.25,5.5A1.25,1.25 0 0,1 18.5,6.75A1.25,1.25 0 0,1 17.25,8A1.25,1.25 0 0,1 16,6.75A1.25,1.25 0 0,1 17.25,5.5M12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9Z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+  <script>
+    // Initialize Swiper
+    const coursesSwiper = new Swiper('.courses-swiper', {
+      slidesPerView: 1,
+      spaceBetween: 30,
+      loop: true,
+      autoplay: {
+        delay: 3000,
+        disableOnInteraction: false,
+      },
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
+      },
+      navigation: {
+        nextEl: '.swiper-button-next',
+        prevEl: '.swiper-button-prev',
+      },
+      breakpoints: {
+        640: {
+          slidesPerView: 2,
+        },
+        1024: {
+          slidesPerView: 3,
+        },
+      },
+      effect: 'slide',
+      speed: 800,
+      grabCursor: true,
+      keyboard: {
+        enabled: true,
+      },
+    });
+
+    // Add mobile menu handling
+    const handleMobileMenu = () => {
+      const navLinks = document.querySelector('.nav-links');
+      const hamburger = document.createElement('button');
+      hamburger.className = 'mobile-menu-button';
+      hamburger.innerHTML = '&#9776;';
+      
+      if (window.innerWidth <= 768) {
+        navLinks.style.display = 'none';
+        document.querySelector('.nav-container').prepend(hamburger);
+        
+        hamburger.addEventListener('click', () => {
+          navLinks.style.display = navLinks.style.display === 'none' ? 'flex' : 'none';
+        });
+      }
+    };
+
+    // Update Swiper breakpoints
+    const updateCarousel = () => {
+      if (window.innerWidth <= 768) {
+        coursesSwiper.params.slidesPerView = 1;
+        coursesSwiper.update();
+      } else if (window.innerWidth <= 992) {
+        coursesSwiper.params.slidesPerView = 2;
+        coursesSwiper.update();
+      } else {
+        coursesSwiper.params.slidesPerView = 3;
+        coursesSwiper.update();
+      }
+    };
+
+    window.addEventListener('resize', () => {
+      handleMobileMenu();
+      updateCarousel();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+      handleMobileMenu();
+      updateCarousel();
+    });
+
+    const observerOptions = {
+      threshold: 0.1
+    };
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+    document.querySelectorAll('.course-card, .stat-item, .path-card, .plan-card, .testimonial-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'all 0.5s ease-out';
+      observer.observe(el);
+    });
+    document.querySelectorAll('a[href^="https://"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        const href = this.getAttribute('href');
+        if (href.startsWith('#')) {
+          e.preventDefault();
+          document.querySelector(href).scrollIntoView({
+            behavior: 'smooth'
+          });
+        }
+      });
+    });
+    const themeToggle = document.getElementById('theme-toggle');
+    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+    const currentTheme = localStorage.getItem('theme') || (prefersDarkScheme.matches ? 'dark' : 'light');
+    if (currentTheme === 'dark') {}
+    document.documentElement.style.setProperty('--theme-transition', 'all 0.3s ease-in-out');
+    themeToggle.addEventListener('click', () => {
+      let theme = document.body.getAttribute('data-theme');
+      if (theme === 'dark') {
+        document.body.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      setTimeout(() => {
+        document.documentElement.style.removeProperty('--theme-transition');
+      }, 300);
+    });
+    prefersDarkScheme.addEventListener('change', e => {
+      const newTheme = e.matches ? 'dark' : 'light';
+      document.body.setAttribute('data-theme', newTheme);
+      localStorage.setItem('theme', newTheme);
+    });
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.path-card').forEach(card => {
+        card.addEventListener('click', () => {
+          const courseName = card.querySelector('h3').textContent;
+          const courseSlug = courseName.toLowerCase().replace(/\s+/g, '-');
+          window.location.href = `https://kaapy.com/course/${courseSlug}`;
+        });
+      });
+    });
+  </script>
+</body>
+</html>
