@@ -942,6 +942,27 @@
           grid-template-columns: 1fr;
           padding: 0 1rem;
         }
+
+        @media (max-width: 768px) {
+  .tech-hologram {
+    position: relative; /* Remover posição absoluta */
+    margin: 0 auto; /* Centraliza o cubo horizontalmente */
+    top: auto; /* Remover ajuste vertical */
+    transform: none; /* Remove o deslocamento */
+    width: 150px; /* Redimensiona o cubo para caber em telas menores */
+    height: 150px;
+  }
+
+  .cube-container {
+    width: 150px; /* Mesma largura que o cubo */
+    height: 150px;
+  }
+
+  .cube {
+    transform: scale(0.8); /* Reduz o tamanho para melhorar a proporção */
+  }
+}
+
   
         .plans-grid {
             display: grid;
