@@ -41,12 +41,11 @@
       }
   
       .header {
-        padding: 1rem 2rem;
-        background: var(--white);
-        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         position: fixed;
-        width: 100%;
-        z-index: 100;
+  width: 100%;
+  z-index: 1000; /* Garante que o cabeçalho esteja acima de outros elementos */
+  background: var(--white); /* Fundo branco para evitar transparência */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona um leve sombreado */
       }
   
       .nav-container {
@@ -654,6 +653,41 @@
   }
 }
 
+@media screen and (max-width: 768px) {
+  .hero-buttons {
+    flex-direction: column; /* Empilhar os botões verticalmente */
+    align-items: center; /* Centralizar */
+    gap: 1rem; /* Adicionar espaço entre os botões */
+  }
+
+  .action-button {
+    width: 90%; /* Ocupa 90% da largura */
+    text-align: center; /* Centraliza o texto */
+  }
+}
+.nav-container {
+  display: flex;
+  flex-wrap: wrap; /* Permite que os itens quebrem linha */
+  justify-content: space-between; /* Espaço entre itens no desktop */
+  align-items: center;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-container {
+    flex-direction: column; /* Empilha os itens no mobile */
+  }
+
+  .nav-links {
+    width: 100%; /* Ocupa toda a largura */
+    display: flex;
+    flex-direction: column; /* Empilha links */
+    text-align: center; /* Centraliza os links */
+    gap: 1rem; /* Espaçamento entre links */
+  }
+}
+
+
+
 /*<!-- FIM DO CSS da seção "O que Dizem Nossos Alunos" -->*/
 
 
@@ -919,7 +953,7 @@
         }
   
         .hero-buttons {
-          flex-wrap: wrap;
+          flex-wrap: nowrap;
           gap: 1rem;
         }
   
@@ -941,20 +975,6 @@
         }
       }
 
-
-      /* Ajustes específicos para telas menores */
-@media screen and (max-width: 768px) {
-  .action-button {
-    font-size: 1.4rem; /* Aumenta o tamanho do texto */
-    padding: 2rem 4rem; /* Aumenta o espaço interno */
-    width: 100%; /* Faz o botão ocupar toda a largura */
-  }
-
-  .hero-buttons {
-    flex-direction: column; /* Alinha os botões verticalmente */
-    gap: 1.5rem; /* Aumenta o espaço entre os botões */
-  }
-}
 
   
       /* Mobile devices */
