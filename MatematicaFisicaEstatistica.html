@@ -1,0 +1,1071 @@
+<html><head><base href="/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cursos Online</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .courses-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .course-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            display: flex;
+            height: auto;
+            min-height: 220px;
+            position: relative;
+        }
+
+        .course-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .course-image {
+            width: 280px;
+            height: 100%;
+            background: #e0e0e0;
+            object-fit: cover;
+        }
+
+        .course-content {
+            padding: 20px;
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr auto; 
+            gap: 20px;
+        }
+
+        .course-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .course-subtitle {
+            font-size: 16px;
+            color: #888;
+            margin-bottom: 12px;
+        }
+
+        .instructor {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 8px;
+        }
+
+        .rating {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .stars {
+            color: #f4c150;
+            display: flex;
+            gap: 2px;
+        }
+
+        .review-count {
+            font-size: 14px;
+            color: #888;
+        }
+
+        .course-details {
+            display: flex;
+            gap: 20px;
+            margin: 12px 0;
+            color: #888;
+            font-size: 14px;
+        }
+
+        .detail-item {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #888;
+        }
+
+        .price-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            justify-content: center;
+            margin-top: 0;
+        }
+
+        .current-price {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1a1a1a;
+            white-space: nowrap;
+        }
+
+        .original-price {
+            font-size: 16px;
+            color: #888;
+            text-decoration: line-through;
+            white-space: nowrap;
+        }
+
+        .course-info {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .search-container {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        #course-search {
+            flex: 1;
+            padding: 12px 16px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 16px;
+            outline: none;
+        }
+
+        #course-search:focus {
+            border-color: #e0e0e0;
+        }
+
+        #search-button {
+            background: #f0f0f0;
+            color: #1a1a1a;
+            border: none;
+            border-radius: 8px;
+            padding: 0 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s;
+        }
+
+        #search-button:hover {
+            background: #e0e0e0;
+        }
+
+        .header-section {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .main-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 24px;
+        }
+
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .tab {
+            padding: 8px 20px;
+            border-radius: 20px;
+            background: #f8f8f8;
+            color: #666;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .tab.active {
+            background: #f0f0f0;
+            color: #1a1a1a;
+        }
+
+        .tab:hover:not(.active) {
+            background: #f8f8f8;
+        }
+
+        .sort-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .sort-label {
+            font-size: 14px;
+            color: #666;
+        }
+
+        #sort-select {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 14px;
+            color: #333;
+            background-color: white;
+            cursor: pointer;
+        }
+
+        #sort-select:focus {
+            border-color: #e0e0e0;
+            outline: none;
+        }
+
+        .content-wrapper {
+            display: flex;
+            gap: 30px;
+        }
+
+        .filters-sidebar {
+            width: 250px;
+            flex-shrink: 0;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .filter-section {
+            margin-bottom: 24px;
+        }
+
+        .filter-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1a1a1a;
+            margin-bottom: 12px;
+        }
+
+        .filter-list {
+            list-style: none;
+        }
+
+        .filter-item {
+            padding: 8px 0;
+            color: #666;
+            cursor: pointer;
+            transition: color 0.2s;
+        }
+
+        .filter-item:hover {
+            color: #1a1a1a;
+        }
+
+        .filter-item.active {
+            color: #1a1a1a;
+            font-weight: 500;
+            background: #f0f0f0;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .main-content {
+            flex: 1;
+        }
+        
+        [data-theme="dark"] {
+            --bg-color: #1a1a1a;
+            --text-color: #ffffff;
+            --card-bg: #2d2d2d; 
+            --hover-color: #3d3d3d; 
+            --shadow-color: rgba(0,0,0,0.3);
+            --secondary-text: #cccccc;
+            --border-color: #404040; 
+            --input-bg: #2d2d2d;
+            --sidebar-bg: #2d2d2d;
+        }
+
+        [data-theme="light"] {
+            --bg-color: #f5f5f5;
+            --text-color: #1a1a1a;
+            --card-bg: white;
+            --hover-color: #f8f8f8;
+            --shadow-color: rgba(0,0,0,0.05);
+            --secondary-text: #666;
+            --border-color: #eee;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            transition: all 0.3s ease;
+        }
+
+        .course-card {
+            background: var(--card-bg);
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        .course-card:hover {
+            box-shadow: 0 4px 12px var(--shadow-color);
+            background: var(--hover-color);
+        }
+
+        .course-title {
+            color: var(--text-color);
+        }
+
+        [data-theme="light"] .course-subtitle, 
+        [data-theme="light"] .instructor, 
+        [data-theme="light"] .review-count,
+        [data-theme="light"] .detail-item {
+            color: #666;
+        }
+
+        [data-theme="light"] .tab {
+            background: #fafafa;
+            color: #666;
+        }
+
+        [data-theme="light"] .tab:hover:not(.active) {
+            background: #f8f8f8;
+        }
+
+        [data-theme="light"] .tab.active {
+            background: #f0f0f0;
+            color: #1a1a1a;
+        }
+
+        [data-theme="light"] .filter-item {
+            color: #666;
+        }
+
+        [data-theme="light"] .original-price {
+            color: #888;
+        }
+
+        [data-theme="light"] .sort-label {
+            color: #666;
+        }
+
+        [data-theme="light"] .course-card:hover {
+            background: #f8f8f8;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+
+        [data-theme="dark"] .course-card:hover {
+            background: #3d3d3d;
+        }
+
+        [data-theme="dark"] .filter-item.active {
+            background: #3d3d3d;
+        }
+
+        [data-theme="dark"] .tab.active {
+            background: #3d3d3d;
+        }
+
+        [data-theme="dark"] .tab {
+            background: #2d2d2d;
+        }
+
+        [data-theme="dark"] .theme-toggle {
+            background: #2d2d2d;
+        }
+
+        [data-theme="dark"] .theme-toggle:hover {
+            background: #3d3d3d;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 40px;
+            right: 40px;
+            border: none;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 2px 8px var(--shadow-color);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .theme-toggle:hover {
+            background: var(--hover-color);
+            transform: scale(1.1);
+        }
+
+        .theme-toggle svg {
+            width: 25px;
+            height: 25px;
+            fill: var(--text-color);
+        }
+
+        [data-theme="dark"] .course-title,
+        [data-theme="dark"] .main-title,
+        [data-theme="dark"] .subtitle,
+        [data-theme="dark"] .filter-title,
+        [data-theme="dark"] .current-price {
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .course-subtitle,
+        [data-theme="dark"] .instructor,
+        [data-theme="dark"] .review-count,
+        [data-theme="dark"] .detail-item,
+        [data-theme="dark"] .filter-item {
+            color: #cccccc;
+        }
+
+        [data-theme="dark"] .original-price {
+            color: #999999;
+        }
+
+        [data-theme="dark"] .filter-item:hover {
+            color: #ffffff;
+        }
+
+        [data-theme="dark"] .filter-item.active {
+            background: #3d3d3d;
+        }
+
+        [data-theme="dark"] #course-search::placeholder {
+            color: #999999;
+        }
+
+        [data-theme="dark"] .filters-sidebar {
+            background: var(--sidebar-bg);
+            box-shadow: 0 2px 8px var(--shadow-color);
+        }
+
+        [data-theme="dark"] #course-search {
+            background: var(--input-bg);
+            border-color: var(--border-color);
+            color: var(--text-color);
+        }
+
+        [data-theme="dark"] #search-button {
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        [data-theme="dark"] #search-button:hover {
+            background: var(--hover-color);
+        }
+
+        [data-theme="dark"] #sort-select {
+            background: var(--input-bg);
+            border-color: var(--border-color);
+            color: var(--text-color);
+        }
+
+        [data-theme="dark"] #sort-select option {
+            background: var(--card-bg);
+            color: var(--text-color);
+        }
+
+        [data-theme="dark"] .tab {
+            background: #2d2d2d;
+            color: var(--secondary-text);
+        }
+
+        [data-theme="dark"] .tab.active {
+            background: #3d3d3d;
+            color: var(--text-color);
+        }
+
+        [data-theme="dark"] .tab:hover:not(.active) {
+            background: #3d3d3d;
+        }
+
+        .favorite-button {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            transition: transform 0.2s;
+        }
+
+        .favorite-button:hover {
+            transform: scale(1.1);
+        }
+
+        .favorite-button svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--text-color);
+            opacity: 0.3; /* Make inactive hearts more subtle */
+        }
+
+        .favorite-button.active svg {
+            fill: var(--text-color);
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <button class="theme-toggle" aria-label="Toggle dark mode">
+        <svg class="sun-icon" viewBox="0 0 24 24">
+            <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7zm0 1.5a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-16a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V2a1 1 0 0 1 1-1zm0 16a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0v-2a1 1 0 0 1 1-1zM2 12a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2H3a1 1 0 0 1-1-1zm16 0a1 1 0 0 1 1-1h2a1 1 0 0 1 0 2h-2a1 1 0 0 1-1-1zm-2.94-7.94a1 1 0 0 1 0 1.41l-1.42 1.42a1 1 0 0 1-1.41-1.41l1.42-1.42a1 1 0 0 1 1.41 0zm-9.19 9.19a1 1 0 0 1 0 1.41l-1.42 1.42a1 1 0 0 1-1.41-1.41l1.42-1.42a1 1 0 0 1 1.41 0zm12.02 0l1.42 1.42a1 1 0 0 1-1.41 1.41l-1.42-1.42a1 1 0 0 1 1.41-1.41zM4.93 4.93l1.42 1.42a1 1 0 0 1-1.41 1.41L3.52 6.34a1 1 0 0 1 1.41-1.41z"/>
+        </svg>
+        <svg class="moon-icon" viewBox="0 0 24 24" style="display: none;">
+            <path d="M12 3a9 9 0 1 0 9 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 0 1-4.4 2.26 5.403 5.403 0 0 1-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/>
+        </svg>
+    </button>
+    <div class="container">
+        <div class="header-section">
+            <h1 class="main-title">Cursos de Matem&#xe1;tica e F&#xed;sica</h1>
+            <p class="subtitle">Cursos para voc&#xea; come&#xe7;ar sua jornada de aprendizado</p>
+            <div class="tab-container">
+                <div class="tab active">Mais populares</div>
+                <div class="tab">Em alta</div>
+            </div>
+        </div>
+        <div class="search-container">
+            <input type="text" id="course-search" placeholder="Buscar cursos...">
+            <button id="search-button">
+                <svg width="20" height="20" fill="currentColor" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
+                </svg>
+            </button>
+        </div>
+        <div class="content-wrapper">
+            <div class="filters-sidebar">
+                <div class="filter-section">
+                    <h3 class="filter-title">Classificado por:</h3>
+                    <select id="sort-select">
+                        <option value="all">Todos</option>
+                        <option value="most-rated">Mais avaliados</option>
+                        <option value="highest-rating">Classifica&#xe7;&#xe3;o mais alta</option>
+                        <option value="newest">Mais novo</option>
+                    </select>
+                </div>
+                <div class="filter-section">
+                    <h3 class="filter-title">Matem&#xe1;tica</h3>
+                    <ul class="filter-list" data-category="math">
+                        <li class="filter-item" data-filter="algebra">&#xc1;lgebra</li>
+                        <li class="filter-item" data-filter="geometry">Geometria</li>
+                        <li class="filter-item" data-filter="calculus">C&#xe1;lculo</li>
+                    </ul>
+                </div>
+                <div class="filter-section">
+                    <h3 class="filter-title">F&#xed;sica</h3>
+                    <ul class="filter-list" data-category="physics">
+                        <li class="filter-item" data-filter="mechanics">Mec&#xe2;nica</li>
+                        <li class="filter-item" data-filter="electricity">Eletricidade</li>
+                        <li class="filter-item" data-filter="thermodynamics">Termodin&#xe2;mica</li>
+                    </ul>
+                </div>
+                <div class="filter-section">
+                    <h3 class="filter-title">Estat&#xed;stica</h3>
+                    <ul class="filter-list" data-category="stats">
+                        <li class="filter-item" data-filter="probability">Probabilidade</li>
+                        <li class="filter-item" data-filter="statistics">Estat&#xed;stica</li>
+                    </ul>
+                </div>
+                <div class="filter-section">
+                    <h3 class="filter-title">Favoritos</h3>
+                    <ul class="filter-list" data-category="favorites">
+                        <li class="filter-item" data-filter="favorites">Cursos Favoritos</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="main-content">
+                <div class="courses-grid">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>const courseCategories = {
+  math: {
+    algebra: ['Álgebra Linear', 'Álgebra Fundamental', 'Teoria dos Números', 'Estruturas Algébricas'],
+    geometry: ['Geometria Analítica', 'Geometria Espacial', 'Geometria Diferencial', 'Geometria Espacial Avançada'],
+    calculus: ['Cálculo Diferencial', 'Cálculo Integral', 'Equações Diferenciais', 'Cálculo Vetorial']
+  },
+  physics: {
+    mechanics: ['Mecânica Clássica', 'Mecânica', 'Mecânica Quântica', 'Mecânica Estatística', 'Física Moderna'],
+    electricity: ['Eletromagnetismo', 'Circuitos Elétricos', 'Eletromagnetismo Fundamental', 'Óptica Física'],
+    thermodynamics: ['Termodinâmica Básica', 'Física Térmica', 'Termodinâmica Aplicada', 'Física Nuclear']
+  },
+  stats: {
+    probability: ['Teoria da Probabilidade', 'Probabilidade Aplicada', 'Probabilidade e Estatística'],
+    statistics: ['Estatística Básica', 'Estatística Aplicada', 'Estatística para Análise de Dados', 'Estatística Avançada']
+  }
+};
+let favoriteCourses = JSON.parse(localStorage.getItem('favoriteCourses')) || [];
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  localStorage.setItem('theme', theme);
+  const sunIcon = document.querySelector('.sun-icon');
+  const moonIcon = document.querySelector('.moon-icon');
+  if (theme === 'dark') {
+    sunIcon.style.display = 'none';
+    moonIcon.style.display = 'block';
+  } else {
+    sunIcon.style.display = 'block';
+    moonIcon.style.display = 'none';
+  }
+}
+function toggleTheme() {
+  const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+  const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+  setTheme(newTheme);
+}
+function normalizeText(text) {
+  return text.normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+}
+const courses = {
+  popular: [{
+    title: "Curso de Física - Matemática",
+    subtitle: "Mecânica (Cinemática, Dinâmica, Estática)",
+    instructor: "Prof. Vinicius Lima Martins",
+    rating: 4.8,
+    reviews: 23,
+    duration: "23 horas",
+    lessons: 75,
+    level: "Todos os níveis",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Estatística para Análise de Dados",
+    subtitle: "Fundamentos e Aplicações Práticas",
+    instructor: "Prof. Bruno Coelho Martins",
+    rating: 4.9,
+    reviews: 2345,
+    duration: "20 horas",
+    lessons: 65,
+    level: "Iniciante a Avançado",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Cálculo Diferencial e Integral",
+    subtitle: "Introdução ao Cálculo",
+    instructor: "Profa. Vinicius Bulcão Santos",
+    rating: 4.7,
+    reviews: 1892,
+    duration: "25 horas",
+    lessons: 80,
+    level: "Intermediário",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Probabilidade Aplicada",
+    subtitle: "Introdução à Probabilidade",
+    instructor: "Prof. Cledenilson Coelho de Souza",
+    rating: 4.8,
+    reviews: 3421,
+    duration: "20 horas",
+    lessons: 65,
+    level: "Iniciante a Avançado",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Estatística Avançada",
+    subtitle: "Análise de Dados Avançada",
+    instructor: "Prof. Cledenilson Lima Andrade",
+    rating: 4.9,
+    reviews: 1756,
+    duration: "25 horas",
+    lessons: 80,
+    level: "Avançado",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Física Moderna",
+    subtitle: "Relatividade e Física Quântica",
+    instructor: "Prof. Daniel Andrade Bulcão",
+    rating: 4.9,
+    reviews: 1256,
+    duration: "28 horas",
+    lessons: 85,
+    level: "Avançado",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Geometria Espacial Avançada",
+    subtitle: "Teoremas e Aplicações 3D",
+    instructor: "Prof. Cledenilson Andrade Silva",
+    rating: 4.7,
+    reviews: 892,
+    duration: "22 horas",
+    lessons: 70,
+    level: "Intermediário a Avançado",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Eletromagnetismo Fundamental",
+    subtitle: "Teoria e Exercícios Práticos",
+    instructor: "Prof. Vinicius Batista Santos",
+    rating: 4.8,
+    reviews: 1543,
+    duration: "25 horas",
+    lessons: 78,
+    level: "Intermediário",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Teoria dos Números",
+    subtitle: "Fundamentos da Matemática Discreta",
+    instructor: "Prof. Cledenilson Martins Bulcão",
+    rating: 4.6,
+    reviews: 756,
+    duration: "20 horas",
+    lessons: 65,
+    level: "Intermediário",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Termodinâmica Aplicada",
+    subtitle: "Leis e Aplicações Práticas",
+    instructor: "Profa. Marcos Lima Botafogo",
+    rating: 4.9,
+    reviews: 2134,
+    duration: "24 horas",
+    lessons: 72,
+    level: "Todos os níveis",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }],
+  trending: [{
+    title: "Física Quântica Fundamental",
+    subtitle: "Princípios e Aplicações Modernas",
+    instructor: "Profa. Thais Coelho Lima",
+    rating: 4.7,
+    reviews: 892,
+    duration: "25 horas",
+    lessons: 80,
+    level: "Intermediário",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Álgebra Linear",
+    subtitle: "Introdução à Álgebra Linear",
+    instructor: "Prof. Daniel Martins",
+    rating: 4.8,
+    reviews: 1243,
+    duration: "20 horas",
+    lessons: 65,
+    level: "Iniciante a Avançado",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Geometria Analítica",
+    subtitle: "Introdução à Geometria Analítica",
+    instructor: "Prof. Cledy Vasco da Gama",
+    rating: 4.7,
+    reviews: 657,
+    duration: "25 horas",
+    lessons: 80,
+    level: "Intermediário",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Física Mecânica",
+    subtitle: "Introdução à Física Mecânica",
+    instructor: "Prof. Bruno Santos Coelho",
+    rating: 4.8,
+    reviews: 1532,
+    duration: "20 horas",
+    lessons: 65,
+    level: "Iniciante a Avançado",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Equações Diferenciais",
+    subtitle: "Teoria e Aplicações",
+    instructor: "Prof. Vinicius Lima de Souza",
+    rating: 4.8,
+    reviews: 1123,
+    duration: "26 horas",
+    lessons: 82,
+    level: "Avançado",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Óptica Física",
+    subtitle: "Fenômenos Ondulatórios",
+    instructor: "Profa. Thais Andrade",
+    rating: 4.7,
+    reviews: 867,
+    duration: "21 horas",
+    lessons: 68,
+    level: "Intermediário",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Teoria da Probabilidade",
+    subtitle: "Conceitos Avançados",
+    instructor: "Prof. Cledenilson Silva Andrade",
+    rating: 4.9,
+    reviews: 1432,
+    duration: "23 horas",
+    lessons: 75,
+    level: "Intermediário a Avançado",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Física Nuclear",
+    subtitle: "Fundamentos e Aplicações",
+    instructor: "Prof. Marcos Souza Souza",
+    rating: 4.8,
+    reviews: 945,
+    duration: "27 horas",
+    lessons: 85,
+    level: "Avançado",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }, {
+    title: "Cálculo Vetorial",
+    subtitle: "Teoria e Problemas",
+    instructor: "Prof. Cledy Lima Andrade Coelho Santos",
+    rating: 4.6,
+    reviews: 756,
+    duration: "22 horas",
+    lessons: 70,
+    level: "Intermediário",
+    currentPrice: "R$ 27,90",
+    originalPrice: "R$ 189,90"
+  }]
+};
+let activeFilter = null;
+function sortCourses(courses, sortBy) {
+  const sortedCourses = [...courses];
+  switch (sortBy) {
+    case 'most-rated':
+      sortedCourses.sort((a, b) => b.reviews - a.reviews);
+      break;
+    case 'highest-rating':
+      sortedCourses.sort((a, b) => b.rating - a.rating);
+      break;
+    case 'newest':
+      sortedCourses.reverse();
+      break;
+    case 'all':
+    default:
+      // Return courses without any sorting
+      return sortedCourses;
+  }
+  return sortedCourses;
+}
+function renderCourses(courseList) {
+  const coursesGrid = document.querySelector('.courses-grid');
+  coursesGrid.innerHTML = '';
+  courseList.forEach(course => {
+    const courseHTML = `
+                    <div class="course-card">
+                        <div class="course-image"></div>
+                        <div class="course-content">
+                            <div class="course-info">
+                                <h3 class="course-title">${course.title}</h3>
+                                <p class="course-subtitle">${course.subtitle}</p>
+                                <p class="instructor">${course.instructor}</p>
+                                <div class="rating">
+                                    <div class="stars">
+                                        ${Array(Math.floor(course.rating)).fill(`
+                                            <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                                <path d="M8 0l2.5 5 5.5.8-4 3.9 1 5.3L8 12.3 3 15l1-5.3-4-3.9 5.5-.8z"/>
+                                            </svg>
+                                        `).join('')}
+                                    </div>
+                                    <span class="review-count">${course.rating} (${course.reviews} avaliações)</span>
+                                </div>
+                                <div class="course-details">
+                                    <span class="detail-item">
+                                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 3.5a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+                                            <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                        </svg>
+                                        ${course.duration}
+                                    </span>
+                                    <span class="detail-item">
+                                        <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                            <path d="M1 2.828c.885-.37 2.154-.769 3.388-.893 1.33-.134 2.458.063 3.112.752v9.746c-.935-.53-2.12-.603-3.213-.493-1.18.12-2.37.461-3.287.811V2.828zm7.5-.141c.654-.689 1.782-.886 3.112-.752 1.234.124 2.503.523 3.388.893v9.923c-.918-.35-2.107-.692-3.287-.81-1.094-.111-2.278-.039-3.213.492V2.687zM8 1.783C7.015.936 5.587.81 4.287.94c-1.514.153-3.042.672-3.994 1.105A.5.5 0 0 0 0 2.5v11a.5.5 0 0 0 .707.455c.882-.4 2.303-.881 3.68-1.02 1.409-.142 2.59.087 3.223.877a.5.5 0 0 0 .78 0c.633-.79 1.814-1.019 3.222-.877 1.378.139 2.8.62 3.681 1.02A.5.5 0 0 0 16 13.5v-11a.5.5 0 0 0-.293-.455c-.952-.433-2.48-.952-3.994-1.105C10.413.809 8.985.936 8 1.783z"/>
+                                    </svg>
+                                    ${course.lessons} aulas
+                                </span>
+                                <span class="detail-item">
+                                    <svg width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                                        <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+                                        <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+                                    </svg>
+                                    ${course.level}
+                                </span>
+                            </div>
+                        </div>
+                        <div class="price-container">
+                            <span class="current-price">${course.currentPrice}</span>
+                            <span class="original-price">${course.originalPrice}</span>
+                        </div>
+                    </div>
+                    <button class="favorite-button ${favoriteCourses.includes(course.title) ? 'active' : ''}" data-course-title="${course.title}">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+                        </svg>
+                    </button>
+                </div>
+                `;
+    coursesGrid.innerHTML += courseHTML;
+  });
+}
+function filterCourses(searchTerm) {
+  const activeTab = document.querySelector('.tab.active');
+  let courseList = activeTab.textContent === 'Mais populares' ? courses.popular : courses.trending;
+  
+  // Handle favorites filter
+  if (window.activeFilter && window.activeFilter.category === 'favorites') {
+    courseList = courseList.filter(course => favoriteCourses.includes(course.title));
+  }
+  
+  // Handle category filters
+  if (window.activeFilter && window.activeFilter.category !== 'favorites') {
+    const categoryTitles = courseCategories[window.activeFilter.category][window.activeFilter.filter];
+    courseList = courseList.filter(course => {
+      const normalizedCourseTitle = normalizeText(course.title);
+      const normalizedCourseSubtitle = normalizeText(course.subtitle);
+      return categoryTitles.some(title => {
+        const normalizedTitle = normalizeText(title);
+        return normalizedCourseTitle.includes(normalizedTitle) || 
+               normalizedCourseSubtitle.includes(normalizedTitle);
+      });
+    });
+  }
+  
+  // Handle search
+  if (searchTerm) {
+    const normalizedSearch = normalizeText(searchTerm);
+    courseList = courseList.filter(course => {
+      const normalizedTitle = normalizeText(course.title);
+      const normalizedInstructor = normalizeText(course.instructor);
+      const normalizedSubtitle = normalizeText(course.subtitle);
+      return normalizedTitle.includes(normalizedSearch) || 
+             normalizedInstructor.includes(normalizedSearch) || 
+             normalizedSubtitle.includes(normalizedSearch);
+    });
+  }
+  
+  const sortValue = document.getElementById('sort-select').value;
+  const sortedAndFilteredCourses = sortCourses(courseList, sortValue);
+  renderCourses(sortedAndFilteredCourses);
+}
+document.addEventListener('DOMContentLoaded', function () {
+  window.favoriteCourses = JSON.parse(localStorage.getItem('favoriteCourses')) || [];
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  setTheme(savedTheme);
+  const themeToggle = document.querySelector('.theme-toggle');
+  themeToggle.addEventListener('click', toggleTheme);
+  const tabs = document.querySelectorAll('.tab');
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+      const courseList = tab.textContent === 'Mais populares' ? courses.popular : courses.trending;
+      const sortedCourses = sortCourses(courseList, document.getElementById('sort-select').value);
+      renderCourses(sortedCourses);
+    });
+  });
+  renderCourses(courses.popular);
+  const searchInput = document.getElementById('course-search');
+  const searchButton = document.getElementById('search-button');
+  const sortSelect = document.getElementById('sort-select');
+  searchInput.addEventListener('input', e => {
+    filterCourses(e.target.value);
+  });
+  searchButton.addEventListener('click', () => {
+    filterCourses(searchInput.value);
+  });
+  searchInput.addEventListener('keypress', e => {
+    if (e.key === 'Enter') {
+      filterCourses(searchInput.value);
+    }
+  });
+  sortSelect.addEventListener('change', () => {
+    const activeTab = document.querySelector('.tab.active');
+    const courseList = activeTab.textContent === 'Mais populares' ? courses.popular : courses.trending;
+    const searchTerm = searchInput.value;
+    let filteredCourses = courseList;
+    if (searchTerm) {
+      filteredCourses = courseList.filter(course => {
+        const normalizedSearch = normalizeText(searchTerm);
+        const normalizedTitle = normalizeText(course.title);
+        const normalizedInstructor = normalizeText(course.instructor);
+        const normalizedSubtitle = normalizeText(course.subtitle);
+        return normalizedTitle.includes(normalizedSearch) || 
+               normalizedInstructor.includes(normalizedSearch) || 
+               normalizedSubtitle.includes(normalizedSearch);
+      });
+    }
+    const sortedCourses = sortCourses(filteredCourses, sortSelect.value);
+    renderCourses(sortedCourses);
+  });
+  const filterItems = document.querySelectorAll('.filter-item');
+  filterItems.forEach(item => {
+    item.addEventListener('click', () => {
+      const wasActive = item.classList.contains('active');
+      filterItems.forEach(i => i.classList.remove('active'));
+      if (wasActive) {
+        window.activeFilter = null;
+      } else {
+        item.classList.add('active');
+        window.activeFilter = {
+          category: item.closest('.filter-list').dataset.category,
+          filter: item.dataset.filter
+        };
+      }
+      filterCourses(document.getElementById('course-search').value);
+    });
+  });
+  document.addEventListener('click', function (e) {
+    if (e.target.closest('.favorite-button')) {
+      const button = e.target.closest('.favorite-button');
+      const courseTitle = button.dataset.courseTitle;
+      if (button.classList.contains('active')) {
+        button.classList.remove('active');
+        favoriteCourses = favoriteCourses.filter(title => title !== courseTitle);
+      } else {
+        button.classList.add('active');
+        if (!favoriteCourses.includes(courseTitle)) {
+          favoriteCourses.push(courseTitle);
+        }
+      }
+      localStorage.setItem('favoriteCourses', JSON.stringify(favoriteCourses));
+      if (window.activeFilter && window.activeFilter.category === 'favorites') {
+        filterCourses(document.getElementById('course-search').value);
+      }
+    }
+  });
+});</script>
+</body>
+</html>
