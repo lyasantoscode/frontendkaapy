@@ -2,17 +2,18 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-
     <title>Kaapy Cursos</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Montserrat:wght@300;400;500;600;700;800;900&family=Chakra+Petch:ital,wght@0,400;0,700;1,400&display=swap&family=Michroma&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <style>
       /* Update CSS root variables */
       :root {
         --udacity-blue: #02b3e4;
         --dark-blue: #2e3d49;
-        --light-gray: #f7f7f7;
-        --white: #ffffff;
-        --text-primary: #000000;
+        --light-gray: #fcfcfc ;
+        --white: #f7f8fa;
+        --text-primary: #1a1a1a;
         --text-secondary: #666;
         --card-shadow: rgba(0,0,0,0.1);
         --cube-size: 200px;
@@ -22,7 +23,7 @@
       [data-theme="dark"] {
         --udacity-blue: #00d8ff;
         --dark-blue: #ffffff;
-        --light-gray: #1a1a1a;
+        --light-gray: #32302f;
         --white: #32302f;
         --text-primary: #ffffff;
         --text-secondary: #aaa;
@@ -33,13 +34,15 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        font-family: 'Open Sans', sans-serif;
+      
       }
   
       body {
+        font-family: 'Chakra Petch', sans-serif;
         background-color: var(--white);
         color: var(--text-primary);
         transition: background-color 0.3s, color 0.3s;
+        
       }
   
       .header {
@@ -48,6 +51,11 @@
   z-index: 1000; /* Garante que o cabeçalho esteja acima de outros elementos */
   background: var(--white); /* Fundo branco para evitar transparência */
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Adiciona um leve sombreado */
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 30px; /* Aumenta o espaçamento interno */
+  position: fixed;
+  min-height: 70px; /* Define uma altura mínima maior */
       }
   
       .nav-container {
@@ -68,6 +76,8 @@
       .nav-links {
         display: flex;
         gap: 2rem;
+        font-size: 2rem; /* Aumenta o tamanho da fonte */
+  padding: 10px 20px; /* Aumenta o espaçamento interno */
       }
   
       .nav-links a {
@@ -155,7 +165,7 @@
       }
   
       .hero-text p {
-        font-size: 1.2rem;
+        font-size: 1.7rem;
         margin-bottom: 2rem;
         line-height: 1.6;
         color: var(--white);
@@ -791,42 +801,61 @@
       }
   
       /* Style for the new action buttons */
-      .action-button {
-    background: #258cd1; /* Azul escuro */
+
+
+
+
+     .action-button {
+    background: linear-gradient(145deg, #464444, #423f3f); /* Gradiente cinza moderno */
     color: #ffffff; /* Texto branco */
-   
-        padding: 1.5rem 3rem; /* Aumenta o espaço interno */
-        border-radius: 8px;
-        text-decoration: none;
-        font-weight: bold;
-        font-size: 1.2rem;
-        transition: all 0.3s ease;
-        box-shadow: 0 6px 8px rgba(0,0,0,0.1); /* Dá mais ênfase */
-        position: relative;
-        display: inline-block;
-        overflow: hidden;
-      }
-  
-      .action-button:hover {
-    background: #21056e; 
-    color: #e0f7ff;
+    padding: 1.5rem 3rem;
+    border-radius: 12px; /* Bordas levemente arredondadas */
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.2rem;
+    transition: all 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3), 
+                0 -2px 4px rgba(255, 255, 255, 0.1) inset; /* Sombra moderna */
+    position: relative;
+    display: inline-block;
+    overflow: hidden;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2), 
+                 0 0 10px rgba(255, 255, 255, 0.1);
 }
 
+.action-button:hover {
+    background: linear-gradient(145deg, #686666, #524c4c); /* Gradiente mais claro no hover */
+    color: #f9feff; /* Texto iluminado */
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
+                 0 0 20px rgba(4, 118, 199, 0.7),
+                 0 0 30px rgba(0, 150, 255, 0.8),
+                 0 0 40px rgb(4, 151, 250); /* Efeito tecnológico */
+    transform: scale(1.05); /* Pequeno aumento para destacar */
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.4), 
+                0 -2px 6px rgba(255, 255, 255, 0.2) inset; /* Mais sombras no hover */
+}
 
 .action-button::after {
     content: '';
     position: absolute;
     bottom: 0;
     right: 0;
-    width: 40px; /* Controle o tamanho do "corte" */
+    width: 40px;
     height: 40px;
-    background-color: #000; /* Cor de fundo do corte (ajustar conforme necessário) */
-    clip-path: polygon(100% 0, 0 100%, 100% 100%); /* Faz o corte na diagonal */
+    background-color: #000;
+    clip-path: polygon(100% 0, 0 100%, 100% 100%);
+    transition: transform 0.3s ease;
 }
-  
-      .action-button:hover::after {
-        transform: translateX(0);
-      }
+
+.action-button:hover::after {
+    transform: translateX(0);
+}
+
+.action-button:active {
+    background: linear-gradient(145deg, #2e2e2e, #393939); /* Gradiente mais escuro ao clicar */
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.6); /* Impressão de "pressionado" */
+}
+
       
       /* Update/add cube styles */
       :root {
@@ -924,6 +953,7 @@
   color: white;
   font-size: 4.5rem;
   font-weight: bold;
+  animation: float 3s ease-in-out infinite;
 }
 
 
@@ -1290,6 +1320,9 @@
     }
 }
 
+body {
+  font-family: 'Chakra Petch', sans-serif;
+}
 
     </style>
   </head>
@@ -1316,7 +1349,7 @@
     <section class="hero">
       <div class="hero-content">
         <div class="hero-text">
-            <h1 class="hero-title">KAAPY CURSOS</h1>
+            <h1 class="hero-title">KAAPY ACADEMY</h1>
           <p>Conecte-se e explore o universo da maior comunidade de aprendizagem do país</p>
         </div>
         <div class="hero-image">
