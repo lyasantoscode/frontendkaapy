@@ -1,6 +1,5 @@
 <html><head><base href="/">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cursos Online</title>
     <style>
         * {
@@ -12,31 +11,38 @@
 
         body {
             background-color: #eaebec;
-            padding: 20px;
+         
+            padding: 10px 5px; /* Lateral menor para evitar cortes em celulares */
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            padding: 0 15px; /* Reduzindo o padding */
         }
 
         .courses-grid {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap; /* Adicionado para quebra de linha */
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* Ajusta automaticamente */
             gap: 20px;
-            margin-top: 20px;
+            justify-content: center; /* Centraliza os cards */
         }
 
         .course-card {
+            flex: 1 1 calc(100% - 40px); /* Ocupa 100% em telas pequenas */
+            max-width: calc(100% - 40px); /* Previne ultrapassar a largura */
+            min-width: 0; /* Evita problemas com elementos mínimos */
             background: white;
             border-radius: 8px;
             overflow: hidden;
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
             transition: transform 0.2s;
             display: flex;
-            height: auto;
+            height: 300px; /* Altura fixa */
             min-height: 220px;
             position: relative;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
 
         .course-card:hover {
@@ -52,11 +58,13 @@
         }
 
         .course-content {
-            padding: 20px;
+            padding: 16px; /*tamanho do padding interno da PAGINAAAA*/
             flex: 1;
             display: grid;
             grid-template-columns: 1fr auto; 
             gap: 20px;
+            overflow: hidden; /* Oculta excesso de texto */
+            text-overflow: ellipsis; /* Adiciona "..." ao texto longo */
         }
 
         .course-title {
@@ -65,18 +73,24 @@
             color: #1a1a1a;
             margin-bottom: 8px;
             line-height: 1.4;
+            .course-content {
+    padding: 16px; /* Reduz o espaçamento em telas menores */
+}
+
         }
 
         .course-subtitle {
             font-size: 16px;
             color: #888;
             margin-bottom: 12px;
+            font-size: 12px; /* Ajustado para dispositivos menores */
         }
 
         .instructor {
             font-size: 14px;
             color: #888;
             margin-bottom: 8px;
+            font-size: 12px; /* Ajustado para dispositivos menores */
         }
 
         .rating {
@@ -84,6 +98,7 @@
             align-items: center;
             gap: 4px;
             margin-bottom: 12px;
+             font-size: 12px; /* Ajustado para dispositivos menores */
         }
 
         .stars {
@@ -324,6 +339,7 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             transition: all 0.3s ease;
+            padding: 10px; /* Ajuste para telas menores */
         }
 
         .course-card {
@@ -533,6 +549,61 @@
             fill: var(--text-color);
             opacity: 1;
         }
+
+        @media (max-width: 768px) {
+    .filters-sidebar {
+        display: none; /* Esconde a barra lateral */
+    }
+
+    .content-wrapper {
+        flex: 1 1 100%; /* Expande para o tamanho total da tela */
+        flex-direction: column; /* Alinha verticalmente em telas pequenas */
+        max-width: 100%;
+    }
+
+    .course-card {
+        min-height: auto; /* Para melhor visualização em telas pequenas */
+    }
+
+    .main-title {
+        font-size: 24px; /* Tamanho menor para telas menores */
+    }
+    .theme-toggle {
+        width: 40px;
+        height: 40px;
+        top: 20px;
+        right: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 5px; /* Reduz padding em dispositivos muito pequenos */
+    }
+
+    .course-title {
+        font-size: 18px;
+    }
+
+    .current-price {
+        font-size: 18px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+    }
+}
+@media (max-width: 480px) {
+    .search-container {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    #course-search, #search-button {
+        width: 100%; /* Ocupa toda a largura disponível */
+    }
+}
+
     </style>
 </head>
 <body>
