@@ -9,6 +9,9 @@
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
     <style>
+* {
+  box-sizing: border-box;
+}
 
       /* Variáveis em css globais */
       :root {
@@ -54,8 +57,192 @@
         background-color: var(--fundo);
         color: var(--text-primary);
         transition: background-color 0.3s, color 0.3s;
+
+
+
+        margin: 0;
+      justify-content: center;
+  
+      min-height: 100vh;
+      background-color: #fdfdfd;
+  
         
       }
+
+
+      .main-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .content-wrapper {
+      display: flex;
+      align-items: center;
+      gap: 40px;
+    }
+
+    .interactive-content {
+      display: flex;
+      align-items: center;
+      gap: 15px;  /* Reduced gap between cube and cards */
+    }
+
+    .text-content {
+      max-width: 400px;
+    }
+    
+    .text-content h1 {
+      font-size: 32px;
+      margin-bottom: 15px;
+      color: #333;
+    }
+    
+    .text-content p {
+      font-size: 16px;
+      line-height: 1.6;
+      color: #666;
+    }
+    
+
+/* Estilo para a área do mascote */
+.mascot-area {
+  background-color: #0a3c75; /* Cor de fundo */
+  color: #ffffff; /* Cor do texto */
+  padding: 50px 20px; /* Espaçamento interno */
+  display: flex; /* Flexbox para o alinhamento */
+  justify-content: center; /* Centraliza horizontalmente */
+  align-items: center; /* Centraliza verticalmente */
+  flex-direction: row; /* Alinha lado a lado */
+}
+
+
+.mascot-container-area {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px; /* Espaço entre o mascote e o texto */
+}
+
+.interactive-content {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+
+.text-content {
+  max-width: 800px;
+  text-align: center; /* Centraliza o texto */
+  margin: 0 auto; /* Garante que o texto esteja centralizado dentro do container */
+  margin-left: 90px; /* Ajusta o deslocamento para a direita */
+
+  padding: 20px;
+
+
+  text-align: justify;
+  font-size: 1rem;
+  line-height: 1.8;
+  color: white;
+ 
+}
+
+.text-content h1 {
+  color: #ffffff; /* Define a cor branca */
+  font-size: 3.2rem;
+  margin-bottom: 10px;
+}
+
+.text-content p {
+  color: #ffffff; /* Define a cor branca */
+  font-size: 1.3rem;
+  line-height: 1.6;
+}
+
+  
+  .mascot-container {
+  perspective: 1000px;
+  width: 90px;
+  height: 90px;
+  margin: 0 auto; /* Centraliza o cubo horizontalmente */
+  margin-left: 80px ;
+}
+
+.cubic {
+  position: relative;
+  width: 90px;
+  height: 90px;
+  transform-style: preserve-3d;
+  animation: float1 4s ease-in-out infinite;
+  cursor: pointer;
+}
+
+.facet {
+  position: absolute;
+  width: 90px;
+  height: 90px;
+  background: linear-gradient(135deg, #02b3e4, #67d3f5);
+  border: 2px solid #0194c2;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: inset 0 0 15px rgba(255, 255, 255, 0.3);
+  backface-visibility: visible;
+}
+
+.front1 { transform: translateZ(45px); }
+.back1 { transform: rotateY(180deg) translateZ(45px); }
+.right1 { transform: rotateY(90deg) translateZ(45px); }
+.left1 { transform: rotateY(-90deg) translateZ(45px); }
+.top1 { transform: rotateX(90deg) translateZ(45px); }
+.bottom1 { transform: rotateX(-90deg) translateZ(45px); }
+
+.eyes {
+  position: absolute;
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  padding: 0 3px;
+  top: 20px;
+}
+
+.eye {
+  width: 45px;   /*aumeta o tamanho do olho. Nao mexa com meu zoio*/
+  height: 45px;
+  background: white;
+  border-radius: 50%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+}
+
+.pupil {
+  width: 15px;
+  height: 15px;
+  background: black;
+  border-radius: 50%;
+  position: relative;
+  animation: blink1 4s infinite;
+
+}
+
+/* Animações */
+@keyframes float1 {
+  0%, 100% { transform: translateY(0) rotateX(10deg) rotateY(20deg); }
+  50% { transform: translateY(-10px) rotateX(-10deg) rotateY(-20deg); }
+}
+
+@keyframes blink1 {
+  0%, 96%, 98% { transform: scaleY(1); }
+  97% { transform: scaleY(0.1); }
+}
+
+    
   /* --------------------------------------------------------*/
       /* CABEÇAÇHO  */
 
@@ -253,6 +440,7 @@
         animation-delay: 2s; /* Atraso na animação */
       }
 
+    
       /* Triângulos */
       .triangle {
         position: fixed;
@@ -282,6 +470,26 @@
         animation-delay: 3s; /* Atraso na animação */
       }
 
+      .triangle-3 {
+        bottom: 60%;
+        left: 53%;
+        width:  0;
+        height: 0;
+        border-left: 100px solid transparent;
+        border-right: 100px solid transparent;
+        border-bottom: 180px solid rgba(245, 212, 217, 0.959);
+        animation-delay: 3s; /* Atraso na animação */
+      }
+
+      /* Trapézios */
+    .trapezoid {
+      position: fixed;
+      z-index: -1; /* Fica no fundo */
+      opacity: 0.5;
+      animation: float 8s infinite ease-in-out;
+      clip-path: polygon(30% 0%, 70% 0%, 100% 100%, 0% 100%); /* Forma de trapézio */
+    }
+
       /* Animações */
       @keyframes float {
         0%, 100% {
@@ -301,13 +509,96 @@
         }
       }
 
+
+        /* Hexágonos */
+    .hexagon {
+      position: fixed;
+      z-index: -1; /* Fica no fundo */
+      opacity: 0.5;
+      animation: float 8s infinite ease-in-out;
+      clip-path: polygon(
+        50% 0%,   /* Topo */
+        100% 25%, /* Canto superior direito */
+        100% 75%, /* Canto inferior direito */
+        50% 100%, /* Base */
+        0% 75%,   /* Canto inferior esquerdo */
+        0% 25%    /* Canto superior esquerdo */
+      ); /* Forma de hexágono */
+    }
+
+    .hexagon-1 {
+      top: 40%;
+      left: 40%;
+      width: 120px;
+      height: 120px;
+      background: rgba(176, 198, 216, 0.6); /* Cor diferente */
+      animation-delay: 2s; /* Atraso na animação */
+    }
+
+    /* Animação de flutuação */
+    @keyframes float {
+      0% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-20px);
+      }
+      100% {
+        transform: translateY(0);
+      }
+    }
+      
+      /* Livro/Caderno */
+  .book {
+    position: fixed;
+    z-index: -1; /* Fica no fundo */
+    width: 120px;
+    height: 160px;
+    background: linear-gradient(135deg, #e0e4cc 50%, #d9d9d9 50%); /* Capa e páginas */
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2); /* Sombra para dar profundidade */
+    clip-path: polygon(
+      0% 0%,     /* Canto superior esquerdo */
+      90% 0%,    /* Canto superior direito */
+      100% 10%,  /* Canto dobrado no topo */
+      100% 90%,  /* Canto dobrado na base */
+      90% 100%,  /* Canto inferior direito */
+      0% 100%    /* Canto inferior esquerdo */
+    );
+    opacity: 0.7;
+    animation: float 10s infinite ease-in-out;
+  }
+
+  .book-1 {
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation-delay: 3s;
+  }
+
+  /* Animação de flutuação */
+  @keyframes float {
+    0% {
+      transform: translate(-50%, -50%) translateY(0);
+    }
+    50% {
+      transform: translate(-50%, -50%) translateY(-15px);
+    }
+    100% {
+      transform: translate(-50%, -50%) translateY(0);
+    }
+  }
+
+
+
    /* --------------------------------------------------------*/
 
     /* -------------------Ligados ao titulo em CURSOS EM DESTAQUE, distancia entre outros blocos, baixo e cima, centralizado etc"------------------------------------*/
     
     .featured-courses {     
+      max-width: 1200px;
         padding: 4rem 2rem;
         background: var(--light-gray);
+          margin: 0 auto; /* Centraliza horizontalmente */  
       }
   
       .featured-courses h2 {
@@ -539,8 +830,6 @@
         border: 2px solid var(--udacity-blue);
       }
 
-      
-
   
       .plans-section {
         padding: 4rem 2rem;
@@ -550,7 +839,7 @@
   
       .plans-section h2 {
         text-align: center;
-        font-size: 2.5rem;
+        font-size: 4rem;
         margin-bottom: 1rem;
       }
   
@@ -667,22 +956,32 @@
   
       .testimonials-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px; /* Espaço consistente entre os cards */
+      grid-template-columns: repeat(3, minmax(0, 1fr)); 
+      column-gap: 20px; /* Espaçamento horizontal entre os cartões */
       justify-content: center; /* Centraliza os cards no contêiner */
-      align-items: stretch; /* Garante que todos os cards tenham altura consistente */
+      align-items: stretch; /* Garante que os cartões tenham a mesma altura */
+      justify-items: center; /* Centraliza os itens */
+      width: 100%; /* Garante que a grade ocupe toda a largura disponível */
+      align-items: stretch; /* Mantém altura consistente */
       padding: 0 2rem; /* Espaçamento interno lateral */
+
+      max-width: 1200px; /* Limita a largura máxima */
+      margin: 0 auto; /* Centraliza o grid dentro do contêiner */
+      row-gap: 20px; /* Controla o espaço vertical */
     }
 
 
     .testimonial-card {
       width: 100%; /* Garante que os cartões ocupem toda a largura disponível */
+      max-width: 350px; /* Limita a largura máxima */
       background: var(--white2);
       border-radius: 12px;
       padding: 1.5rem;
       box-shadow: 0 4px 12px var(--card-shadow);
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       text-align: left; /* Alinha o conteúdo internamente à esquerda */
+      margin: 0 auto; /* Centraliza os cards */
+      
     }
 
     .testimonial-card:hover {
@@ -881,15 +1180,12 @@
         z-index: 10;
       }
   
-      /* Style for the new action buttons */
-
-
-
+    /* Style for the new action buttons. Os três botões centrais*/
 
      .action-button {
-    background: linear-gradient(145deg, #464444, #423f3f); /* Gradiente cinza moderno */
+    background: linear-gradient(145deg, #5e86d1, #253fd1); /* Gradiente cinza moderno */
     color: #ffffff; /* Texto branco */
-    padding: 1.5rem 3rem;
+    padding: 1.5rem 5rem;
     border-radius: 12px; /* Bordas levemente arredondadas */
     text-decoration: none;
     font-weight: bold;
@@ -905,7 +1201,7 @@
 }
 
 .action-button:hover {
-    background: linear-gradient(145deg, #686666, #524c4c); /* Gradiente mais claro no hover */
+    background: linear-gradient(145deg, #091580, #0c29ad); /* Gradiente mais claro no hover */
     color: #f9feff; /* Texto iluminado */
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.6),
                  0 0 20px rgba(4, 118, 199, 0.7),
@@ -1417,6 +1713,9 @@
   <div class="background-shape circle circle-2"></div>
   <div class="background-shape triangle triangle-1"></div>
   <div class="background-shape triangle triangle-2"></div>
+  <div class="background-shape triangle triangle-3"></div>
+  <div class="background-shape hexagon hexagon-1"></div>
+ 
    <!------------------------------------------------------>
    <!--logo e os três botões ficam aqui-->
     <header class="header">
@@ -1706,6 +2005,42 @@
     </section>
  <!-----------------------------------------------------------------------------------------------> 
           
+
+ <section class="mascot-area">
+  <div class="mascot-container-area">
+    <div class="interactive-content">
+
+ <div class="mascot-container">
+  <div class="cubic" id="cubic1">
+    <div class="facet front1">
+      <div class="eyes">
+        <div class="eye"><div class="pupil"></div></div>
+        <div class="eye"><div class="pupil"></div></div>
+      </div>
+    </div>
+    <div class="facet back1"></div>
+    <div class="facet right1"></div>
+    <div class="facet left1"></div>
+    <div class="facet top1"></div>
+    <div class="facet bottom1"></div>
+  </div>
+</div>
+
+       <!-- Texto ao lado do mascote -->
+       <div class="text-content">
+       <h1>Na Kaapy, você encontra mais do que cursos </h1>
+        <p>
+          Você se sentirá em casa em nossa comunidade de solucionadores de problemas e buscadores de conhecimento.
+          Aqui, você encontra os melhores profissionais de ensino, dedicados a transformar aprendizado em conquistas.
+          Seja para crescer na sua carreira ou realizar um sonho. Este é o seu lugar para aprender, crescer e conquistar o que sempre desejou.
+        </p>
+      </div>
+    </div>
+    
+  </div>
+</div>
+</section>
+
      <!-- SECTION DOS PLANOS AQUI -->
   
     <section class="plans-section">
@@ -2090,6 +2425,24 @@
         updateCubeFaces();
       });
       //--------------------------------------------------//
+
+      document.getElementById('cubic1').addEventListener('mousemove', (e) => {
+  const cubic = e.currentTarget;
+  const rect = cubic.getBoundingClientRect();
+  const x = (e.clientX - rect.left) / rect.width - 0.5;
+  const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+  cubic.style.transform = `
+    rotateY(${x * 30}deg)
+    rotateX(${-y * 30}deg)
+    translateY(${Math.sin(Date.now() / 1000) * 10}px)
+  `;
+});
+
+document.getElementById('cubic1').addEventListener('mouseleave', (e) => {
+  e.currentTarget.style.transform = '';
+});
+
 
     </script>
   </body>
